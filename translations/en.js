@@ -10,7 +10,7 @@ var en = {
 
 "slower": "Slower",
 
-"play": "Play",
+"play": "Plol",
 
 "pause": "Pause",
 

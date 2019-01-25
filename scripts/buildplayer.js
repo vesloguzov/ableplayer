@@ -374,7 +374,7 @@
     if (this.playlistEmbed === true) {
       // move playlist into player, immediately before statusBarDiv
       var playlistClone = this.$playlistDom.clone();
-      playlistClone.insertBefore(this.$statusBarDiv);
+      playlistClone.insertAfter(this.$statusBarDiv);
       // Update to the new playlist copy.
       this.$playlist = playlistClone.find('li');
     }
@@ -1572,7 +1572,7 @@
       if (typeof itemLang !== 'undefined') {
         nowPlayingSpan.attr('lang',itemLang);
       }
-      nowPlayingSpan.html('<span>Selected track:</span>' + itemTitle);
+      nowPlayingSpan.html('<span>' + this.tt.selectedTrack + '</span>' + itemTitle);
       this.$nowPlayingDiv.html(nowPlayingSpan);
     }
 

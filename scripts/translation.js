@@ -2,7 +2,7 @@
   AblePlayer.prototype.getSupportedLangs = function() {
     // returns an array of languages for which AblePlayer has translation tables
     // Removing 'nl' as of 2.3.54, pending updates
-    var langs = ['ca','de','en','es','fr','he','it','ja','nb','zh-tw'];
+    var langs = ['ca','de','en','es','fr','he','it','ja','nb','zh-tw', 'ru'];
     return langs;
   };
 
@@ -47,7 +47,8 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    translationFile = this.rootPath + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + 'translations/' + this.lang + '.js';
+    translationFile =  '/' + 'translations/' + this.lang + '.js';
     this.importTranslationFile(translationFile).then(function(result) {
       thisObj.tt = eval(thisObj.lang);
       deferred.resolve();

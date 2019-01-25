@@ -64,7 +64,7 @@
 }
 .able-player {
 	font-family: Arial, Helvetica, sans-serif;
-	background-color: #262626; /* background color of player (appears on top & bottom) */
+	background-color: #20334b; /* background color of player (appears on top & bottom) */
 }
 .able-offscreen {
 	position:absolute;
@@ -84,9 +84,9 @@
 }
 .able-controller {
 	position: relative;
-	border-top: 2px solid #4c4c4c;
-	border-bottom: 2px solid #4c4c4c;
-	background-color: #464646; /* background color of controller bar */
+	/*border-top: 2px solid #4c4c4c;
+	border-bottom: 2px solid #4c4c4c;*/
+	/*background-color: #464646;*/ /* background color of controller bar */
 	min-height: 38px; /* height of button (20px) + 4px border + 4px padding */
 	padding: 0;
 }
@@ -154,7 +154,7 @@
   padding: 0;
   font-size: 20px;
   min-width: 24px;
-  outline: 2px solid #464646; /* same color as .able-controller background-color */
+  /*outline: 2px solid #464646;*/ /* same color as .able-controller background-color */
   border: none;
   overflow: visible !important;
   z-index: 6600;
@@ -196,7 +196,7 @@
 }
 .able-seekbar {
   position: relative;
-  height: 0.5em;
+  height: 1em;
   border: 1px solid;
   background-color: #000000;
   margin: 0 3px;
@@ -209,7 +209,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  height: 0.5em;
+  height: 1em;
   background-color: #464646;
   z-index: 5100;
 }
@@ -218,7 +218,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  height: 0.5em;
+  height: 1em;
   background-color: #DADADA;
   z-index: 5200;
 }
@@ -228,10 +228,10 @@
   left: 0;
   top: -0.45em;
   background-color: #FDFDFD;
-  width: 0.8em;
-  height: 0.8em;
+  width: 1.8em;
+  height: 1.8em;
   border: 1px solid;
-  border-radius: 0.8em;
+  border-radius: 1.8em;
   z-index: 5500;
 }
 
@@ -376,7 +376,7 @@ input[type=range]:focus::-ms-fill-upper {
 	height: 1.5em;
 	min-height: 1.5em;
 	color: #CCC;
-	font-size: 0.9em;
+	font-size: 1.3em;
 	background-color: transparent;
 	padding: 0.5em 0.5em 0.25em;
 }
@@ -454,7 +454,7 @@ div.able-now-playing {
 	padding: 0.5em 0.5em 1em;
 }
 div.able-now-playing span {
-	font-size: 0.9em;
+	font-size: 1.1em;
 }
 div.able-now-playing span span {
 	display: block;
@@ -1213,8 +1213,8 @@ button#able-vts-save:focus {
 */
 button svg {
 	display: inline-block;
-	width: 1em;
-	height: 1em;
+	width: 3em;
+	height: 3em;
 	fill: currentColor;
 }
 
