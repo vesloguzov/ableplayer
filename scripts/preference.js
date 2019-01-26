@@ -1,6 +1,7 @@
 (function ($) {
   AblePlayer.prototype.setCookie = function(cookieValue) {
-    Cookies.set('Able-Player', cookieValue, { expires:90 });
+    localStorage.setItem('Able-Player', JSON.stringify(cookieValue));
+    // Cookies.set('Able-Player', cookieValue, { expires:90 });
     // set the cookie lifetime for 90 days
   };
 
@@ -14,11 +15,13 @@
 
     var cookie;
     try {
-      cookie = Cookies.getJSON('Able-Player');
+
+      // cookie = Cookies.getJSON('Able-Player');
+      cookie = JSON.parse(localStorage.getItem('Able-Player'))
     }
     catch (err) {
       // Original cookie can't be parsed; update to default
-      Cookies.getJSON(defaultCookie);
+      // Cookies.getJSON(defaultCookie);
       cookie = defaultCookie;
     }
     if (cookie) {

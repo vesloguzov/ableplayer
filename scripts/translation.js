@@ -47,8 +47,10 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    // translationFile = this.rootPath + 'translations/' + this.lang + '.js';
-    translationFile =  '/' + 'translations/' + this.lang + '.js';
+    // translationFile = '/' + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + '/' + this.lang + '.js';
+    translationFile =  'http://media.ls.urfu.ru:8080/asset-v1:UrFU+DSP_TEST+2018+type@asset+block@' + this.lang + '.js';
     this.importTranslationFile(translationFile).then(function(result) {
       thisObj.tt = eval(thisObj.lang);
       deferred.resolve();

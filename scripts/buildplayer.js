@@ -1160,15 +1160,17 @@
             var position = $(this).position();
             var buttonHeight = $(this).height();
             var buttonWidth = $(this).width();
-            var tooltipY = position.top - buttonHeight - 15;
+            var tooltipY = position.top - buttonHeight + 30;
             var centerTooltip = true;
             if ($(this).closest('div').hasClass('able-right-controls')) {
               // this control is on the right side
               if ($(this).closest('div').find('button:last').get(0) == $(this).get(0)) {
                 // this is the last control on the right
                 // position tooltip using the "right" property
+                var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
                 centerTooltip = false;
-                var tooltipX = 0;
+                var tooltipX = 0 - (tooltipWidth - buttonWidth); // !!!!!!
+                // var tooltipX = 50;
                 var tooltipStyle = {
                   left: '',
                   right: tooltipX + 'px',
@@ -1181,7 +1183,10 @@
               if ($(this).is(':first-child')) {
                 // this is the first control on the left
                 centerTooltip = false;
-                var tooltipX = position.left;
+                var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
+                // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
+                // console.log(tooltipX);
+                var tooltipX = position.left - (tooltipWidth - buttonWidth); // !!!!!
                 var tooltipStyle = {
                   left: tooltipX + 'px',
                   right: '',
@@ -1193,7 +1198,9 @@
               // populate tooltip, then calculate its width before showing it
               var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
               // center the tooltip horizontally over the button
-              var tooltipX = position.left - tooltipWidth/2;
+              var tooltipX = position.left; //- tooltipWidth/2;
+              // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
+               // + buttonWidth/2
               var tooltipStyle = {
                 left: tooltipX + 'px',
                 right: '',

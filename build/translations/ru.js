@@ -10,7 +10,7 @@ var ru = {
 
 "slower": "Медленнее",
 
-"play": "Старт",
+"play": "Воспроизвести",
 
 "pause": "Пауза",
 
@@ -60,7 +60,7 @@ var ru = {
 
 "seekbarLabel": "timeline",
 
-"mute": "Без звук",
+"mute": "Без звука",
 
 "unmute": "Со звуком",
 
@@ -72,7 +72,7 @@ var ru = {
 
 "volumeSliderClosed": "Volume slider closed",
 
-"preferences": "Preferences",
+"preferences": "Предпочтение клавиатуры",
 
 "enterFullScreen": "Включить полноэкранный режим",
 
@@ -92,7 +92,7 @@ var ru = {
 
 "lyricsTitle": "Lyrics",
 
-"autoScroll": "Auto scroll",
+"autoScroll": "Автопромотка",
 
 "unknown": "Unknown",
 
@@ -116,7 +116,7 @@ var ru = {
 
 "statusLoadingNext": "Loading next track",
 
-"statusEnd": "End of track",
+"statusEnd": "Конец файла",
 
 "selectedTrack": "Воспроизводится:",
 
@@ -128,13 +128,13 @@ var ru = {
 
 "fallbackError2": "The following browsers are known to work with this media player",
 
-"orHigher": "or higher",
+"orHigher": "или выше",
 
 "prefMenuCaptions": "Captions",
 
 "prefMenuDescriptions": "Descriptions",
 
-"prefMenuKeyboard": "Keyboard",
+"prefMenuKeyboard": "Клавиатура",
 
 "prefMenuTranscript": "Transcript",
 
@@ -142,7 +142,7 @@ var ru = {
 
 "prefTitleDescriptions": "Audio Description Preferences",
 
-"prefTitleKeyboard": "Keyboard Preferences",
+"prefTitleKeyboard": "Управление клавиатурой",
 
 "prefTitleTranscript": "Transcript Preferences",
 
@@ -168,9 +168,9 @@ var ru = {
 
 "prefCookieWarning": "Saving your preferences requires cookies.",
 
-"prefHeadingKeyboard1": "Modifier keys used for shortcuts",
+"prefHeadingKeyboard1": "Клавиши-модификаторы, используемые для сочетания клавиш",
 
-"prefHeadingKeyboard2": "Current keyboard shortcuts",
+"prefHeadingKeyboard2": "Текущие сочетания клавиш",
 
 "prefHeadingDescription": "Audio description",
 
@@ -188,7 +188,7 @@ var ru = {
 
 "escapeKey": "Escape",
 
-"escapeKeyFunction": "Close current dialog or popup menu",
+"escapeKeyFunction": "Закрыть текущий диалог или всплывающее окно",
 
 "prefDescFormat": "Preferred format",
 
@@ -264,23 +264,23 @@ var ru = {
 
 "sampleCaptionText": "Sample caption text",
 
-"prefSuccess": "Your changes have been saved.",
+"prefSuccess": "Ваши изменения были сохранены.",
 
-"prefNoChange": "You didn't make any changes.",
+"prefNoChange": "Вы не сделали никаких изменений.",
 
 "help": "Help",
 
 "helpTitle": "Help",
 
-"save": "Save",
+"save": "Сохранить",
 
-"cancel": "Cancel",
+"cancel": "Отменить",
 
 "ok": "ok",
 
-"done": "Done",
+"done": "Готово",
 
-"closeButtonLabel": "Close dialog",
+"closeButtonLabel": "Закрыть",
 
 "windowButtonLabel": "Window options",
 

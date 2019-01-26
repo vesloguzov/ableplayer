@@ -45,7 +45,7 @@
   position: relative;
   margin: 1em 0;
   width: 100%; /* will be changed dynamically as player is contructed */
-  box-shadow: 0px 0px 16px #262626;
+  box-shadow: 0px 0px 2px #262626;
   z-index: 5000;
 }
 .able-column-left {
@@ -146,6 +146,8 @@
   border: 2px solid #FFF;
 }
 .able-controller button {
+  box-shadow: none !important;
+  background: none !important;
   background: none;
   position: relative;
   display: inline-block;
@@ -177,7 +179,9 @@
 }
 .able-controller button:hover,
 .able-controller button:focus {
-  outline-style: solid;
+  /*outline-style: solid;*/
+  border: none !important;
+  cursor: pointer;
   outline-width: medium;
 }
 .able-controller button:hover {
@@ -185,6 +189,9 @@
 }
 .able-controller button:focus {
 	outline-color: #ffbb37 !important; /* yellow */
+}
+.able-controller button:active{
+  border: none !important;
 }
 
 /*
@@ -239,13 +246,13 @@
   Volume Slider
 */
 .able-volume-slider {
-  width: 34px;
-  height: 50px;
+  width: 64px;
+  height: 100px;
   background-color: #464646; /* same as .able-controller */
   padding: 10px 0;
   position: absolute;
-  right: 0px;
-  top: -74px;
+  right: 6px;
+  top: -124px;
   display: block;
   z-index: 9100;
 }
@@ -253,23 +260,23 @@
   display: block;
   position: relative;
   height: 100%; /* = 50px after padding */
-  width: 5px;
+  width: 16px;
   margin: 0 auto;
   background-color: #999;
 }
 .able-volume-track.able-volume-track-on {
   background-color: #dadada;
   position: absolute;
-  height: 20px; /* change dynamically; 5px per volume tick */
-  top: 30px;  /* change dynamically; 50px - height */
+  height: 100px; /* change dynamically; 5px per volume tick */
+  top: 0px;  /* change dynamically; 50px - height */
 }
 .able-volume-head {
   display: inline-block;
   background-color: #fdfdfd;
   outline: 1px solid #333;
   position: absolute;
-  height: 7px;
-  width: 15px;
+  height: 12px;
+  width: 25px;
   left: -5px;
   top: 23px; /* change dynamically; .able-volume-track-on top - 7 */
   z-index: 9175;
@@ -811,6 +818,8 @@ div.able-chapters-div button::-moz-focus-inner {
 */
 
 .able-tooltip, .able-alert {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
   position: absolute;
   padding: 5px 10px;
   border-color: black;
@@ -839,8 +848,8 @@ div.able-chapters-div button::-moz-focus-inner {
 */
 .able-popup {
   position: absolute;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
   border-color: black;
   border-width: 1px;
   background-color: #000;
@@ -855,8 +864,10 @@ ul.able-popup {
   list-style-type: none;
 }
 .able-popup li {
-  padding: 0.25em 1em 0.25em 0.25em;
-  margin: 1px;
+  padding: 0.25em 1em 0.25em 0.25em !important;
+  margin: 1px !important;
+      list-style: none !important;
+    list-style-type: none !important;
   color: #FFF;
 }
 .able-popup li.able-focus {
@@ -946,6 +957,7 @@ ul.able-popup {
 .able-controller button:hover,
 .able-seekbar-head:focus,
 .able-seekbar-head:hover {
+  box-shadow: none !important;
   outline-style: solid;
   outline-width: 2px;
 }
@@ -954,6 +966,7 @@ ul.able-popup {
 .able-controller input:focus,
 .able-controller button:focus,
 .able-seekbar-head:focus {
+    box-shadow: none !important;
 	outline-color: #ffbb37; /* yellow */
 }
 .able-window-toolbar input:hover,
@@ -961,6 +974,7 @@ ul.able-popup {
 .able-controller input:hover,
 .able-controller button:hover,
 .able-seekbar-head:hover {
+    box-shadow: none !important;
 	outline-color: #8AB839; /* green */
 }
 .able-window-toolbar .transcript-language-select-wrapper {
@@ -973,16 +987,19 @@ ul.able-popup {
 */
 
 .able-player .able-playlist {
-	font-size: 0.9em;
+    list-style: none !important;
+    list-style-type: none !important;
+    /*padding-left: 0px !important;*/
+	font-size: 1.3em;
 	list-style-type: none;
-	margin: 0;
+	margin: 0 !important;
 	background-color: #FFFFFF;
-	padding: 5px 0;
+	padding: 5px 0 !important;
 }
 .able-player .able-playlist li {
 	background-color: #DDDDDD; /* default background color of each item in playlist */
-	margin: 5px;
-	padding: 5px 10px;
+    margin: 5px !important;
+    padding: 5px 10px !important;
 	border-radius: 15px;
 	-moz-border-radius: 15px;
 }

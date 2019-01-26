@@ -675,7 +675,7 @@
         break;
 
       case 'pause':
-        svg[0] = '0 0 20 20';
+        svg[0] = '0 0 18 20';
         svg[1] = 'M0 18.036v-15.714q0-0.29 0.212-0.502t0.502-0.212h5.714q0.29 0 0.502 0.212t0.212 0.502v15.714q0 0.29-0.212 0.502t-0.502 0.212h-5.714q-0.29 0-0.502-0.212t-0.212-0.502zM10 18.036v-15.714q0-0.29 0.212-0.502t0.502-0.212h5.714q0.29 0 0.502 0.212t0.212 0.502v15.714q0 0.29-0.212 0.502t-0.502 0.212h-5.714q-0.29 0-0.502-0.212t-0.212-0.502z';
         break;
 
@@ -1457,7 +1457,8 @@
 
 (function ($) {
   AblePlayer.prototype.setCookie = function(cookieValue) {
-    Cookies.set('Able-Player', cookieValue, { expires:90 });
+    localStorage.setItem('Able-Player', JSON.stringify(cookieValue));
+    // Cookies.set('Able-Player', cookieValue, { expires:90 });
     // set the cookie lifetime for 90 days
   };
 
@@ -1471,11 +1472,13 @@
 
     var cookie;
     try {
-      cookie = Cookies.getJSON('Able-Player');
+
+      // cookie = Cookies.getJSON('Able-Player');
+      cookie = JSON.parse(localStorage.getItem('Able-Player'))
     }
     catch (err) {
       // Original cookie can't be parsed; update to default
-      Cookies.getJSON(defaultCookie);
+      // Cookies.getJSON(defaultCookie);
       cookie = defaultCookie;
     }
     if (cookie) {
@@ -4293,15 +4296,17 @@
             var position = $(this).position();
             var buttonHeight = $(this).height();
             var buttonWidth = $(this).width();
-            var tooltipY = position.top - buttonHeight - 15;
+            var tooltipY = position.top - buttonHeight + 30;
             var centerTooltip = true;
             if ($(this).closest('div').hasClass('able-right-controls')) {
               // this control is on the right side
               if ($(this).closest('div').find('button:last').get(0) == $(this).get(0)) {
                 // this is the last control on the right
                 // position tooltip using the "right" property
+                var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
                 centerTooltip = false;
-                var tooltipX = 0;
+                var tooltipX = 0 - (tooltipWidth - buttonWidth); // !!!!!!
+                // var tooltipX = 50;
                 var tooltipStyle = {
                   left: '',
                   right: tooltipX + 'px',
@@ -4314,7 +4319,10 @@
               if ($(this).is(':first-child')) {
                 // this is the first control on the left
                 centerTooltip = false;
-                var tooltipX = position.left;
+                var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
+                // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
+                // console.log(tooltipX);
+                var tooltipX = position.left - (tooltipWidth - buttonWidth); // !!!!!
                 var tooltipStyle = {
                   left: tooltipX + 'px',
                   right: '',
@@ -4326,7 +4334,9 @@
               // populate tooltip, then calculate its width before showing it
               var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
               // center the tooltip horizontally over the button
-              var tooltipX = position.left - tooltipWidth/2;
+              var tooltipX = position.left; //- tooltipWidth/2;
+              // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
+               // + buttonWidth/2
               var tooltipStyle = {
                 left: tooltipX + 'px',
                 right: '',
@@ -6089,7 +6099,7 @@
     // define a few variables
     volumeSliderId = this.mediaId + '-volume-slider';
     volumeHelpId = this.mediaId + '-volume-help';
-    this.volumeTrackHeight = 50; // must match CSS height for .able-volume-slider
+    this.volumeTrackHeight = 100; // must match CSS height for .able-volume-slider
     this.volumeHeadHeight = 7; // must match CSS height for .able-volume-head
     this.volumeTickHeight = this.volumeTrackHeight / 10;
 
@@ -12727,8 +12737,10 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    // translationFile = this.rootPath + 'translations/' + this.lang + '.js';
-    translationFile =  '/' + 'translations/' + this.lang + '.js';
+    // translationFile = '/' + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + '/' + this.lang + '.js';
+    translationFile =  'http://media.ls.urfu.ru:8080/asset-v1:UrFU+DSP_TEST+2018+type@asset+block@' + this.lang + '.js';
     this.importTranslationFile(translationFile).then(function(result) {
       thisObj.tt = eval(thisObj.lang);
       deferred.resolve();

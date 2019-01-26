@@ -14,7 +14,7 @@
     // define a few variables
     volumeSliderId = this.mediaId + '-volume-slider';
     volumeHelpId = this.mediaId + '-volume-help';
-    this.volumeTrackHeight = 50; // must match CSS height for .able-volume-slider
+    this.volumeTrackHeight = 100; // must match CSS height for .able-volume-slider
     this.volumeHeadHeight = 7; // must match CSS height for .able-volume-head
     this.volumeTickHeight = this.volumeTrackHeight / 10;
 
