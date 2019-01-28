@@ -58,7 +58,7 @@ var ru = {
 
 "hideSign": "Скрыть язык жестов",
 
-"seekbarLabel": "timeline",
+"seekbarLabel": "График времени",
 
 "mute": "Без звука",
 
@@ -66,11 +66,11 @@ var ru = {
 
 "volume": "Громкость",
 
-"volumeHelp": "Click to access volume slider",
+"volumeHelp": "Нажмите, чтобы получить доступ к слайдеру громкости",
 
-"volumeUpDown": "Volume up down",
+"volumeUpDown": "Уменьшить громкость",
 
-"volumeSliderClosed": "Volume slider closed",
+"volumeSliderClosed": "Слайдер громкости закрыт",
 
 "preferences": "Предпочтение клавиатуры",
 
@@ -86,15 +86,15 @@ var ru = {
 
 "or": "или",
 
-"spacebar": "spacebar",
+"spacebar": "Пробел",
 
-"transcriptTitle": "Transcript",
+"transcriptTitle": "Расшифровка",
 
-"lyricsTitle": "Lyrics",
+"lyricsTitle": "Текст аудиодорожки",
 
 "autoScroll": "Автопромотка",
 
-"unknown": "Unknown",
+"unknown": "Неизвестный",
 
 "statusPlaying": "Воспроизведение",
 
@@ -106,15 +106,15 @@ var ru = {
 
 "statusBuffering": "Буфферизация",
 
-"statusUsingDesc": "Using described version",
+"statusUsingDesc": "Использовать версию с описанием",
 
-"statusLoadingDesc": "Loading described version",
+"statusLoadingDesc": "Загрузить версию с описанием",
 
-"statusUsingNoDesc": "Using non-described version",
+"statusUsingNoDesc": "спользовать версию без описания",
 
-"statusLoadingNoDesc": "Loading non-described version",
+"statusLoadingNoDesc": "Загрузить версию без описания",
 
-"statusLoadingNext": "Loading next track",
+"statusLoadingNext": "Загрузить следующую аудиодорожку",
 
 "statusEnd": "Конец файла",
 
@@ -130,9 +130,9 @@ var ru = {
 
 "orHigher": "или выше",
 
-"prefMenuCaptions": "Captions",
+"prefMenuCaptions": "Титры",
 
-"prefMenuDescriptions": "Descriptions",
+"prefMenuDescriptions": "Описание",
 
 "prefMenuKeyboard": "Клавиатура",
 
@@ -158,11 +158,11 @@ var ru = {
 
 "prefIntroDescription4": "After you save your settings, audio description can be toggled on/off using the Description button.",
 
-"prefIntroKeyboard1": "The media player on this web page can be operated from anywhere on the page using keyboard shortcuts (see below for a list).",
+"prefIntroKeyboard1": "Медиаплеером на этой веб-странице можно управлять из любого места на странице с помощью сочетаний клавиш (список см. ниже).",
 
-"prefIntroKeyboard2": "Modifier keys (Shift, Alt, and Control) can be assigned below.",
+"prefIntroKeyboard2": "Клавиши-модификаторы (Shift, Alt и Control) могут быть назначены ниже.",
 
-"prefIntroKeyboard3": "NOTE: Some key combinations might conflict with keys used by your browser and/or other software applications. Try various combinations of modifier keys to find one that works for you.",
+"prefIntroKeyboard3": "ПРИМЕЧАНИЕ: Некоторые комбинации клавиш могут конфликтовать с ключами, используемыми вашим браузером и / или другими программными приложениями. Попробуйте различные комбинации клавиш-модификаторов, чтобы найти ту, которая подходит именно вам.",
 
 "prefIntroTranscript": "The following preferences affect the interactive transcript.",
 
@@ -172,7 +172,7 @@ var ru = {
 
 "prefHeadingKeyboard2": "Текущие сочетания клавиш",
 
-"prefHeadingDescription": "Audio description",
+"prefHeadingDescription": "Описание аудиодорожки",
 
 "prefHeadingTextDescription": "Text-based audio description",
 
@@ -190,7 +190,7 @@ var ru = {
 
 "escapeKeyFunction": "Закрыть текущий диалог или всплывающее окно",
 
-"prefDescFormat": "Preferred format",
+"prefDescFormat": "Предпочитаемый формат",
 
 "prefDescFormatHelp": "If both formats are avaialable, only one will be used.",
 
@@ -288,17 +288,17 @@ var ru = {
 
 "windowMoveAlert": "Drag or use arrow keys to move the window; Enter to stop",
 
-"windowResize": "Resize",
+"windowResize": "Изменить размер окна",
 
-"windowResizeHeading": "Resize Window",
+"windowResizeHeading": "Изменить размер окна",
 
-"windowResizeAlert": "The window has been resized.",
+"windowResizeAlert": "Размер окна изменен",
 
 "windowClose": "Закрыть",
 
-"width": "Width",
+"width": "Ширина",
 
-"height": "Height",
+"height": "Высота",
 
 "windowSendBack": "Вернуться назад",
 

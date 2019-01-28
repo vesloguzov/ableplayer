@@ -858,7 +858,7 @@ div.able-chapters-div button::-moz-focus-inner {
   -moz-border-radius: 5px;
   border-radius: 5px;
   display: block;
-  cursor: default;
+  cursor: pointer;
 }
 ul.able-popup {
   list-style-type: none;
