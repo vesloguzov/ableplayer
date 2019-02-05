@@ -366,10 +366,12 @@
       }
     }
     if (this.useChapterTimes) {
-      this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(this.chapterDuration));
+      // this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(this.chapterDuration));
+      this.$durationContainer.text( this.formatSecondsAsColonTime(this.chapterDuration));
     }
     else {
-      this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(duration));
+      // this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(duration));
+      this.$durationContainer.text( this.formatSecondsAsColonTime(duration));
     }
     this.$elapsedTimeContainer.text(this.formatSecondsAsColonTime(displayElapsed));
 
@@ -472,7 +474,21 @@
     // To do this, we need to calculate the width of all buttons surrounding it.
     if (this.seekBar) {
       widthUsed = 0;
+      console.log("this.$elapsedTimeContainer: ", );
       seekbarSpacer = 40; // adjust for discrepancies in browsers' calculated button widths
+
+      this.$elapsedTimeContainer.css({
+        'padding':this.seekBar.seekHead.width()/2,
+      });
+
+      this.$durationContainer.css({
+        'padding':this.seekBar.seekHead.width()/2,
+      });
+          // console.log("lolllll: ", );
+
+      widthUsed += this.$elapsedTimeContainer.width();
+      widthUsed += this.$durationContainer.width();
+      widthUsed += this.seekBar.seekHead.width();
 
       leftControls = this.seekBar.wrapperDiv.parent().prev('div.able-left-controls');
       rightControls = leftControls.next('div.able-right-controls');
@@ -487,13 +503,13 @@
         }
       });
       if (this.isFullscreen()) {
-        seekbarWidth = $(window).width() - widthUsed - seekbarSpacer;
+        seekbarWidth = $(window).width() - widthUsed - seekbarSpacer - 50;
       }
       else {
         seekbarWidth = this.$ableWrapper.width() - widthUsed - seekbarSpacer;
       }
       // Sometimes some minor fluctuations based on browser weirdness, so set a threshold.
-      if (Math.abs(seekbarWidth - this.seekBar.getWidth()) > 5) {
+      if (Math.abs(seekbarWidth - this.seekBar.getWidth()) > 10) {
         this.seekBar.setWidth(seekbarWidth);
       }
     }
@@ -968,7 +984,7 @@
     // NOTE: the prefs menu is positioned near the right edge of the player
     // This assumes the Prefs button is also positioned in that vicinity
     // (last or second-last button the right)
-
+    console.info("&&&&&&&&&&&&&&&&&&&&&&");
     var prefsButtonPosition, prefsMenuRight, prefsMenuLeft;
 
     if (this.hidingPopup) {
@@ -977,6 +993,9 @@
       this.hidingPopup = false;
       return false;
     }
+
+    // this.createPopup('prefs');
+
     if (this.prefsPopup.is(':visible')) {
       this.prefsPopup.hide();
       this.hidingPopup = false;
@@ -987,6 +1006,8 @@
     else {
       this.closePopups();
       this.prefsPopup.show();
+
+
       this.$prefsButton.attr('aria-expanded','true');
       prefsButtonPosition = this.$prefsButton.position();
       prefsMenuRight = this.$ableDiv.width() - 5;
@@ -996,6 +1017,7 @@
       // remove prior focus and set focus on first item; also change tabindex from -1 to 0
       this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','0');
       this.prefsPopup.find('li').first().focus().addClass('able-focus');
+
     }
   };
 

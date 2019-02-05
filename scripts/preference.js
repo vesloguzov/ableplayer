@@ -102,7 +102,7 @@
       }
       return groups;
     }
-  }
+  };
 
   AblePlayer.prototype.getAvailablePreferences = function() {
 

@@ -140,7 +140,8 @@
     this.$durationContainer = $('<span>',{
       'class': 'able-duration'
     });
-    this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
+
+    // this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
 
     this.$speed = $('<span>',{
       'class' : 'able-speed',
@@ -832,11 +833,11 @@
     // Removed rewind/forward in favor of seek bar.
 
     var controlLayout = {
-      'ul': ['play','restart','rewind','forward'],
+      'ul': [],
       'ur': ['seek'],
       'bl': [],
-      'br': []
-    }
+      'br': ['rewind', 'play','restart','forward']
+    };
 
     // test for browser support for volume before displaying volume button
     if (this.browserSupportsVolume()) {
@@ -854,8 +855,11 @@
     var blr = [];
 
     if (this.isPlaybackRateSupported()) {
-      bll.push('slower');
-      bll.push('faster');
+      // bll.push('slower');
+      // bll.push('faster');
+
+       controlLayout['br'].push('slower');
+            controlLayout['br'].push('faster');
     }
 
     if (this.mediaType === 'video') {
@@ -877,7 +881,9 @@
       bll.push('chapters');
     }
 
-    controlLayout['br'].push('preferences');
+    // controlLayout['br'].push('preferences');
+
+    bll.push('preferences');
 
     // TODO: JW currently has a bug with fullscreen, anything that can be done about this?
     if (this.mediaType === 'video' && this.allowFullScreen && this.player !== 'jw') {
@@ -904,20 +910,25 @@
     // browser support (e.g., for sliders and speedButtons)
     // user preferences (???)
     // some controls are aligned on the left, and others on the right
+
     var thisObj, baseSliderWidth, controlLayout, sectionByOrder, useSpeedButtons, useFullScreen,
     i, j, k, controls, $controllerSpan, $sliderDiv, sliderLabel, duration, $pipe, $pipeImg, tooltipId, tooltipX, tooltipY, control,
     buttonImg, buttonImgSrc, buttonTitle, $newButton, iconClass, buttonIcon, buttonUse, svgPath,
     leftWidth, rightWidth, totalWidth, leftWidthStyle, rightWidthStyle,
     controllerStyles, vidcapStyles, captionLabel, popupMenuId;
 
-    thisObj = this;
+    console.log(this.$elapsedTimeContainer);
 
-    baseSliderWidth = 100;
+    thisObj = this;
+    console.log("lol", );
+
+    // baseSliderWidth = 100;
+    baseSliderWidth = 50;
 
     // Initialize the layout into the this.controlLayout variable.
     controlLayout = this.calculateControlLayout();
 
-    sectionByOrder = {0: 'ul', 1:'ur', 2:'bl', 3:'br'};
+    sectionByOrder = {0: 'ul', 1:'ur', 3:'bl', 2:'br'};
 
     // add an empty div to serve as a tooltip
     tooltipId = this.mediaId + '-tooltip';
@@ -946,13 +957,21 @@
         if (control === 'seek') {
           $sliderDiv = $('<div class="able-seekbar"></div>');
           sliderLabel = this.mediaType + ' ' + this.tt.seekbarLabel;
+          $controllerSpan.append(this.$elapsedTimeContainer);
           $controllerSpan.append($sliderDiv);
+          $controllerSpan.append(this.$durationContainer);
+
+
+
           duration = this.getDuration();
           if (duration == 0) {
             // set arbitrary starting duration, and change it when duration is known
             duration = 100;
           }
+          console.log("baseSliderWidth: ", baseSliderWidth);
           this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth, 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
+          // this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth - this.$elapsedTimeContainer.width() - this.$durationContainer.width() , 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
+          console.log();
         }
         else if (control === 'pipe') {
           // TODO: Unify this with buttons somehow to avoid code duplication

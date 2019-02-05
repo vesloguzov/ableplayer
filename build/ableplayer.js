@@ -1559,7 +1559,7 @@
       }
       return groups;
     }
-  }
+  };
 
   AblePlayer.prototype.getAvailablePreferences = function() {
 
@@ -3276,7 +3276,8 @@
     this.$durationContainer = $('<span>',{
       'class': 'able-duration'
     });
-    this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
+
+    // this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
 
     this.$speed = $('<span>',{
       'class' : 'able-speed',
@@ -3968,11 +3969,11 @@
     // Removed rewind/forward in favor of seek bar.
 
     var controlLayout = {
-      'ul': ['play','restart','rewind','forward'],
+      'ul': [],
       'ur': ['seek'],
       'bl': [],
-      'br': []
-    }
+      'br': ['rewind', 'play','restart','forward']
+    };
 
     // test for browser support for volume before displaying volume button
     if (this.browserSupportsVolume()) {
@@ -3990,8 +3991,11 @@
     var blr = [];
 
     if (this.isPlaybackRateSupported()) {
-      bll.push('slower');
-      bll.push('faster');
+      // bll.push('slower');
+      // bll.push('faster');
+
+       controlLayout['br'].push('slower');
+            controlLayout['br'].push('faster');
     }
 
     if (this.mediaType === 'video') {
@@ -4013,7 +4017,9 @@
       bll.push('chapters');
     }
 
-    controlLayout['br'].push('preferences');
+    // controlLayout['br'].push('preferences');
+
+    bll.push('preferences');
 
     // TODO: JW currently has a bug with fullscreen, anything that can be done about this?
     if (this.mediaType === 'video' && this.allowFullScreen && this.player !== 'jw') {
@@ -4040,20 +4046,25 @@
     // browser support (e.g., for sliders and speedButtons)
     // user preferences (???)
     // some controls are aligned on the left, and others on the right
+
     var thisObj, baseSliderWidth, controlLayout, sectionByOrder, useSpeedButtons, useFullScreen,
     i, j, k, controls, $controllerSpan, $sliderDiv, sliderLabel, duration, $pipe, $pipeImg, tooltipId, tooltipX, tooltipY, control,
     buttonImg, buttonImgSrc, buttonTitle, $newButton, iconClass, buttonIcon, buttonUse, svgPath,
     leftWidth, rightWidth, totalWidth, leftWidthStyle, rightWidthStyle,
     controllerStyles, vidcapStyles, captionLabel, popupMenuId;
 
-    thisObj = this;
+    console.log(this.$elapsedTimeContainer);
 
-    baseSliderWidth = 100;
+    thisObj = this;
+    console.log("lol", );
+
+    // baseSliderWidth = 100;
+    baseSliderWidth = 50;
 
     // Initialize the layout into the this.controlLayout variable.
     controlLayout = this.calculateControlLayout();
 
-    sectionByOrder = {0: 'ul', 1:'ur', 2:'bl', 3:'br'};
+    sectionByOrder = {0: 'ul', 1:'ur', 3:'bl', 2:'br'};
 
     // add an empty div to serve as a tooltip
     tooltipId = this.mediaId + '-tooltip';
@@ -4082,13 +4093,21 @@
         if (control === 'seek') {
           $sliderDiv = $('<div class="able-seekbar"></div>');
           sliderLabel = this.mediaType + ' ' + this.tt.seekbarLabel;
+          $controllerSpan.append(this.$elapsedTimeContainer);
           $controllerSpan.append($sliderDiv);
+          $controllerSpan.append(this.$durationContainer);
+
+
+
           duration = this.getDuration();
           if (duration == 0) {
             // set arbitrary starting duration, and change it when duration is known
             duration = 100;
           }
+          console.log("baseSliderWidth: ", baseSliderWidth);
           this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth, 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
+          // this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth - this.$elapsedTimeContainer.width() - this.$durationContainer.width() , 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
+          console.log();
         }
         else if (control === 'pipe') {
           // TODO: Unify this with buttons somehow to avoid code duplication
@@ -5706,6 +5725,7 @@
     this.wrapperDiv = this.bodyDiv.parent();
 
     if (orientation === 'horizontal') {
+      console.log("length: ", length);
       this.wrapperDiv.width(length);
       this.loadedDiv.width(0);
     }
@@ -5905,6 +5925,7 @@
   };
 
   AccessibleSlider.prototype.setWidth = function (width) {
+    console.log("setWidth: ", width);
     this.wrapperDiv.width(width);
     this.resizeDivs();
     this.resetHeadLocation();
@@ -7573,10 +7594,12 @@
       }
     }
     if (this.useChapterTimes) {
-      this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(this.chapterDuration));
+      // this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(this.chapterDuration));
+      this.$durationContainer.text( this.formatSecondsAsColonTime(this.chapterDuration));
     }
     else {
-      this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(duration));
+      // this.$durationContainer.text(' / ' + this.formatSecondsAsColonTime(duration));
+      this.$durationContainer.text( this.formatSecondsAsColonTime(duration));
     }
     this.$elapsedTimeContainer.text(this.formatSecondsAsColonTime(displayElapsed));
 
@@ -7679,7 +7702,21 @@
     // To do this, we need to calculate the width of all buttons surrounding it.
     if (this.seekBar) {
       widthUsed = 0;
+      console.log("this.$elapsedTimeContainer: ", );
       seekbarSpacer = 40; // adjust for discrepancies in browsers' calculated button widths
+
+      this.$elapsedTimeContainer.css({
+        'padding':this.seekBar.seekHead.width()/2,
+      });
+
+      this.$durationContainer.css({
+        'padding':this.seekBar.seekHead.width()/2,
+      });
+          // console.log("lolllll: ", );
+
+      widthUsed += this.$elapsedTimeContainer.width();
+      widthUsed += this.$durationContainer.width();
+      widthUsed += this.seekBar.seekHead.width();
 
       leftControls = this.seekBar.wrapperDiv.parent().prev('div.able-left-controls');
       rightControls = leftControls.next('div.able-right-controls');
@@ -7694,13 +7731,13 @@
         }
       });
       if (this.isFullscreen()) {
-        seekbarWidth = $(window).width() - widthUsed - seekbarSpacer;
+        seekbarWidth = $(window).width() - widthUsed - seekbarSpacer - 50;
       }
       else {
         seekbarWidth = this.$ableWrapper.width() - widthUsed - seekbarSpacer;
       }
       // Sometimes some minor fluctuations based on browser weirdness, so set a threshold.
-      if (Math.abs(seekbarWidth - this.seekBar.getWidth()) > 5) {
+      if (Math.abs(seekbarWidth - this.seekBar.getWidth()) > 10) {
         this.seekBar.setWidth(seekbarWidth);
       }
     }
@@ -8175,7 +8212,7 @@
     // NOTE: the prefs menu is positioned near the right edge of the player
     // This assumes the Prefs button is also positioned in that vicinity
     // (last or second-last button the right)
-
+    console.info("&&&&&&&&&&&&&&&&&&&&&&");
     var prefsButtonPosition, prefsMenuRight, prefsMenuLeft;
 
     if (this.hidingPopup) {
@@ -8184,6 +8221,9 @@
       this.hidingPopup = false;
       return false;
     }
+
+    // this.createPopup('prefs');
+
     if (this.prefsPopup.is(':visible')) {
       this.prefsPopup.hide();
       this.hidingPopup = false;
@@ -8194,6 +8234,8 @@
     else {
       this.closePopups();
       this.prefsPopup.show();
+
+
       this.$prefsButton.attr('aria-expanded','true');
       prefsButtonPosition = this.$prefsButton.position();
       prefsMenuRight = this.$ableDiv.width() - 5;
@@ -8203,6 +8245,7 @@
       // remove prior focus and set focus on first item; also change tabindex from -1 to 0
       this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','0');
       this.prefsPopup.find('li').first().focus().addClass('able-focus');
+
     }
   };
 
@@ -12737,10 +12780,11 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    // translationFile = '/' + 'translations/' + this.lang + '.js';
+    translationFile = '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
+    // translationFile = this.rootPath + this.lang + '.js';
     // translationFile =  'http://media.ls.urfu.ru:8080/asset-v1:UrFU+DSP_TEST+2018+type@asset+block@' + this.lang + '.js';
-    translationFile = this.rootPath + this.lang + '.js';
+    // translationFile = this.rootPath.slice(0, -1) + this.lang + '.js';
     this.importTranslationFile(translationFile).then(function(result) {
       thisObj.tt = eval(thisObj.lang);
       deferred.resolve();
