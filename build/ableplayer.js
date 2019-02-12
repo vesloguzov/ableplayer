@@ -1732,6 +1732,8 @@
     // Creates a preferences form and injects it.
     // form is one of the supported forms (groups) defined in getPreferencesGroups()
 
+    // console.log("injectPrefsForm");
+
     var available, thisObj, $prefsDiv, formTitle, introText,
       $prefsIntro,$prefsIntroP2,p3Text,$prefsIntroP3,i, j,
       $fieldset, fieldsetClass, fieldsetId,
@@ -3527,6 +3529,7 @@
 
   AblePlayer.prototype.createPopup = function (which, tracks) {
 
+    console.log("creating pooooooopup");
     // Create popup menu and append to player
     // 'which' parameter is either 'captions', 'chapters', 'prefs', 'transcript-window' or 'sign-window'
     // TODO: Add 'ytcaptions' to parameter list??? Or do they get handled as 'captions'
@@ -3537,6 +3540,8 @@
       $thisItem, $prevItem, $nextItem;
 
     thisObj = this;
+
+    // console.log("thisObj", thisObj);
 
     $menu = $('<ul>',{
       'id': this.mediaId + '-' + which + '-menu',
@@ -3579,6 +3584,7 @@
             thisObj.descPrefsDialog.show();
           }
           else if (whichPref === thisObj.tt.prefMenuKeyboard) {
+            // console.log("thisObj.tt.prefMenuKeyboard");
             thisObj.keyboardPrefsDialog.show();
           }
           else if (whichPref === thisObj.tt.prefMenuTranscript) {
@@ -3782,6 +3788,9 @@
         prefCats, prefCat, prefLabel;
 
     popups = [];
+
+    console.log("prefsPopup");
+
     if (typeof which === 'undefined') {
       popups.push('prefs');
     }
@@ -8222,31 +8231,34 @@
       return false;
     }
 
-    // this.createPopup('prefs');
+    this.keyboardPrefsDialog.show();
 
-    if (this.prefsPopup.is(':visible')) {
-      this.prefsPopup.hide();
-      this.hidingPopup = false;
-      this.$prefsButton.attr('aria-expanded','false').focus();
-      // restore each menu item to original hidden state
-      this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','-1');
-    }
-    else {
-      this.closePopups();
-      this.prefsPopup.show();
+    // console.log("this: ", );
 
 
-      this.$prefsButton.attr('aria-expanded','true');
-      prefsButtonPosition = this.$prefsButton.position();
-      prefsMenuRight = this.$ableDiv.width() - 5;
-      prefsMenuLeft = prefsMenuRight - this.prefsPopup.width();
-      this.prefsPopup.css('top', prefsButtonPosition.top - this.prefsPopup.outerHeight());
-      this.prefsPopup.css('left', prefsMenuLeft);
-      // remove prior focus and set focus on first item; also change tabindex from -1 to 0
-      this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','0');
-      this.prefsPopup.find('li').first().focus().addClass('able-focus');
+    // if (this.prefsPopup.is(':visible')) {
+    //   this.prefsPopup.hide();
+    //   this.hidingPopup = false;
+    //   this.$prefsButton.attr('aria-expanded','false').focus();
+    //   // restore each menu item to original hidden state
+    //   this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','-1');
+    // }
+    // else {
+    //   this.closePopups();
+    //   this.prefsPopup.show();
+    //
+    //
+    //   this.$prefsButton.attr('aria-expanded','true');
+    //   prefsButtonPosition = this.$prefsButton.position();
+    //   prefsMenuRight = this.$ableDiv.width() - 5;
+    //   prefsMenuLeft = prefsMenuRight - this.prefsPopup.width();
+    //   this.prefsPopup.css('top', prefsButtonPosition.top - this.prefsPopup.outerHeight());
+    //   this.prefsPopup.css('left', prefsMenuLeft);
+    //   // remove prior focus and set focus on first item; also change tabindex from -1 to 0
+    //   this.prefsPopup.find('li').removeClass('able-focus').attr('tabindex','0');
+    //   this.prefsPopup.find('li').first().focus().addClass('able-focus');
+    // }
 
-    }
   };
 
   AblePlayer.prototype.handleHelpClick = function() {

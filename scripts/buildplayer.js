@@ -402,6 +402,7 @@
 
     thisObj = this;
 
+
     $menu = $('<ul>',{
       'id': this.mediaId + '-' + which + '-menu',
       'class': 'able-popup',
@@ -646,6 +647,7 @@
         prefCats, prefCat, prefLabel;
 
     popups = [];
+
     if (typeof which === 'undefined') {
       popups.push('prefs');
     }
@@ -917,10 +919,8 @@
     leftWidth, rightWidth, totalWidth, leftWidthStyle, rightWidthStyle,
     controllerStyles, vidcapStyles, captionLabel, popupMenuId;
 
-    console.log(this.$elapsedTimeContainer);
 
     thisObj = this;
-    console.log("lol", );
 
     // baseSliderWidth = 100;
     baseSliderWidth = 50;
@@ -971,7 +971,6 @@
           console.log("baseSliderWidth: ", baseSliderWidth);
           this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth, 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
           // this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth - this.$elapsedTimeContainer.width() - this.$durationContainer.width() , 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
-          console.log();
         }
         else if (control === 'pipe') {
           // TODO: Unify this with buttons somehow to avoid code duplication
@@ -1204,7 +1203,6 @@
                 centerTooltip = false;
                 var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
                 // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
-                // console.log(tooltipX);
                 var tooltipX = position.left - (tooltipWidth - buttonWidth); // !!!!!
                 var tooltipStyle = {
                   left: tooltipX + 'px',

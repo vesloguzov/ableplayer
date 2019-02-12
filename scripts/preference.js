@@ -275,6 +275,8 @@
     // Creates a preferences form and injects it.
     // form is one of the supported forms (groups) defined in getPreferencesGroups()
 
+    // console.log("injectPrefsForm");
+
     var available, thisObj, $prefsDiv, formTitle, introText,
       $prefsIntro,$prefsIntroP2,p3Text,$prefsIntroP3,i, j,
       $fieldset, fieldsetClass, fieldsetId,
