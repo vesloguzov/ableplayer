@@ -6,6 +6,8 @@
     this.seekFromTime = this.media.currentTime;
     this.seekToTime = newTime;
 
+    console.log("seekTo");
+
     this.seeking = true;
     this.liveUpdatePending = true;
 
@@ -220,6 +222,7 @@
 
   AblePlayer.prototype.playMedia = function () {
 
+    console.log("PLAYING!");
     var thisObj = this;
 
     if (this.player === 'html5') {
@@ -291,7 +294,7 @@
 
     var thisObj, duration, elapsed, lastChapterIndex, displayElapsed,
       updateLive, textByState, timestamp, widthUsed,
-      leftControls, rightControls, seekbarWidth, seekbarSpacer, captionsCount,
+      leftControls, centerControls, rightControls, seekbarWidth, seekbarSpacer, captionsCount,
       buffered, newTop, statusBarHeight, speedHeight, statusBarWidthBreakpoint,
       newSvgData;
 
@@ -477,11 +480,11 @@
       seekbarSpacer = 40; // adjust for discrepancies in browsers' calculated button widths
 
       this.$elapsedTimeContainer.css({
-        'padding':this.seekBar.seekHead.width()/2,
+        'padding':this.seekBar.seekHead.width()/3,
       });
 
       this.$durationContainer.css({
-        'padding':this.seekBar.seekHead.width()/2,
+        'padding':this.seekBar.seekHead.width()/3,
       });
 
       widthUsed += this.$elapsedTimeContainer.width();
@@ -489,8 +492,14 @@
       widthUsed += this.seekBar.seekHead.width();
 
       leftControls = this.seekBar.wrapperDiv.parent().prev('div.able-left-controls');
-      rightControls = leftControls.next('div.able-right-controls');
+      centerControls = leftControls.next('div.able-center-controls');
+      rightControls = centerControls.next('div.able-right-controls');
       leftControls.children().each(function () {
+        if ($(this).prop('tagName')=='BUTTON') {
+          widthUsed += $(this).width();
+        }
+      });
+      centerControls.children().each(function () {
         if ($(this).prop('tagName')=='BUTTON') {
           widthUsed += $(this).width();
         }

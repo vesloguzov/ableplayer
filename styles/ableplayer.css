@@ -117,18 +117,37 @@
     opacity: 100;
     filter:alpha(opacity=100); /* for IE */
 }
-.able-left-controls, .able-right-controls {
+
+.able-controller-row{
+  display: flex;
+      justify-content: space-between;
+  /*flex: 1;*/
+}
+
+.able-left-controls, .able-right-controls, .able-center-controls {
+  display: flex;
+    align-items: center;
+      flex-grow: 1;
+    flex-basis: 0;
+    /*justify-content: center;*/
     overflow: visible;
 }
 .able-left-controls button, .able-right-controls button {
     vertical-align: middle;
 }
+
 .able-left-controls {
-  float: left;
+  /*float: left;*/
+  justify-content: flex-start;
 }
 .able-right-controls {
-  float: right;
+  /*float: right;*/
+  justify-content: flex-end;
 }
+.able-center-controls{
+  justify-content: center;
+}
+
 .able-black-controls,
 .able-black-controls button,
 .able-black-controls label  {
@@ -153,13 +172,16 @@
   display: inline-block;
   border-style: none;
   margin: 3px;
-  padding: 0;
-  font-size: 20px;
+  padding: 3px 8px;
+  font-size: 1.4em;
   min-width: 24px;
   /*outline: 2px solid #464646;*/ /* same color as .able-controller background-color */
   border: none;
   overflow: visible !important;
   z-index: 6600;
+      display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .able-controller button > span,
 .able-controller button > img {
@@ -393,8 +415,15 @@ input[type=range]:focus::-ms-fill-upper {
 	float: left;
 	width: 32%;
 }
+
+.time-block{
+    margin-top: 5px;
+    font-size: 1.7em;
+    word-break: initial;
+}
+
 .able-status-bar span.able-speed {
-  float: left;
+  /*float: left;*/
   width: 33%;
   text-align: center;
 }
@@ -455,13 +484,13 @@ div.able-descriptions {
 div.able-now-playing {
 	text-align: center;
 	font-weight: bold;
-	font-size: 1.1em;
+	font-size: 1.7em;
 	color: #FFFFFF;
 	background-color: transparent;
-	padding: 0.5em 0.5em 1em;
+	padding: 0.5em 0.5em 0.5em;
 }
 div.able-now-playing span {
-	font-size: 1.1em;
+	/*font-size: 1.1em;*/
 }
 div.able-now-playing span span {
 	display: block;
@@ -1000,13 +1029,14 @@ ul.able-popup {
 	background-color: #DDDDDD; /* default background color of each item in playlist */
     margin: 5px !important;
     padding: 5px 10px !important;
-	border-radius: 15px;
-	-moz-border-radius: 15px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 .able-player .able-playlist li:hover,
 .able-player .able-playlist li:focus,
 .able-player .able-playlist li:active { /* playlist items when they have mouse or keyboard focus */
 	color: #FFFFFF;
+    cursor: pointer;
 	background-color: #340449;
 	text-decoration: none;
 }

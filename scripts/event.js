@@ -8,6 +8,7 @@
         // described version been swapped and media has scrubbed to time of previous version
         if (this.playing) {
           // resume playback
+          // console.log("playMedia()");
           this.playMedia();
           // reset vars
           this.swappingSrc = false;
@@ -147,6 +148,7 @@
     // Handle seek bar events.
     this.seekBar.bodyDiv.on('startTracking', function (e) {
       thisObj.pausedBeforeTracking = thisObj.isPaused();
+      // console.log("thisObj.isPaused()", thisObj.isPaused());
       thisObj.pauseMedia();
     }).on('tracking', function (e, position) {
       // Scrub transcript, captions, and metadata.
@@ -156,7 +158,10 @@
       thisObj.updateChapter(thisObj.convertChapterTimeToVideoTime(position));
       thisObj.updateMeta(position);
       thisObj.refreshControls();
+      // console.log("racj", thisObj.pausedBeforeTracking)
     }).on('stopTracking', function (e, position) {
+      console.log("pausedBeforeTracking", thisObj.pausedBeforeTracking);
+      // console.log("stop tracking: ", thisObj.isPaused());
       if (thisObj.useChapterTimes) {
         thisObj.seekTo(thisObj.convertChapterTimeToVideoTime(position));
       }
@@ -164,9 +169,13 @@
         thisObj.seekTo(position);
       }
       if (!thisObj.pausedBeforeTracking) {
+        // console.log("zadhlo");
         setTimeout(function () {
           thisObj.playMedia();
         }, 200);
+      }
+      else{
+        thisObj.pauseMedia();
       }
     });
   };

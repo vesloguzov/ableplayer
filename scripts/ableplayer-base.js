@@ -128,6 +128,9 @@
       this.rootPath = this.getRootPath();
     }
 
+
+    console.log("THIS:", this);
+
     // Volume
     // Range is 0 to 10. Best not to crank it to avoid overpowering screen readers
     this.defaultVolume = 7;
@@ -406,6 +409,8 @@
         this.lang = lang;
       }
     }
+
+    console.log("LANG:", this.lang);
     // Player language is determined as follows (in translation.js > getTranslationText() ):
     // 1. Lang attributes on <html> or <body>, if a matching translation file is available
     // 2. The value of this.lang, if a matching translation file is available
@@ -479,6 +484,7 @@
     var thisObj = this;
     $.when(this.getTranslationText()).then(
       function () {
+        // console.log("INTI");
         if (thisObj.countProperties(thisObj.tt) > 50) {
           // close enough to ensure that most text variables are populated
           thisObj.setup();

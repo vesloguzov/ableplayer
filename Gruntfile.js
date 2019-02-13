@@ -39,6 +39,7 @@ module.exports = function(grunt) {
                     'scripts/dragdrop.js',
                     'scripts/sign.js',
                     'scripts/langs.js',
+                    'scripts/translations.js',
                     'scripts/translation.js',
                     'scripts/ttml2webvtt.js',
                     'scripts/JQuery.doWhen.js',

@@ -128,6 +128,9 @@
       this.rootPath = this.getRootPath();
     }
 
+
+    
+
     // Volume
     // Range is 0 to 10. Best not to crank it to avoid overpowering screen readers
     this.defaultVolume = 7;
@@ -406,6 +409,8 @@
         this.lang = lang;
       }
     }
+
+    
     // Player language is determined as follows (in translation.js > getTranslationText() ):
     // 1. Lang attributes on <html> or <body>, if a matching translation file is available
     // 2. The value of this.lang, if a matching translation file is available
@@ -479,6 +484,7 @@
     var thisObj = this;
     $.when(this.getTranslationText()).then(
       function () {
+        // 
         if (thisObj.countProperties(thisObj.tt) > 50) {
           // close enough to ensure that most text variables are populated
           thisObj.setup();
@@ -3136,6 +3142,8 @@
   }
 })(jQuery);
 
+"use strict";
+
 (function ($) {
 
   AblePlayer.prototype.injectPlayerCode = function() {
@@ -3202,6 +3210,8 @@
       }
       this.addTranscriptAreaEvents();
     }
+
+
 
     this.injectAlert();
     this.injectPlaylist();
@@ -3272,11 +3282,11 @@
       'class' : 'able-timer'
     });
     this.$elapsedTimeContainer = $('<span>',{
-      'class': 'able-elapsedTime',
+      'class': 'able-elapsedTime time-block',
       text: '0:00'
     });
     this.$durationContainer = $('<span>',{
-      'class': 'able-duration'
+      'class': 'able-duration time-block'
     });
 
     // this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
@@ -3529,7 +3539,6 @@
 
   AblePlayer.prototype.createPopup = function (which, tracks) {
 
-    
     // Create popup menu and append to player
     // 'which' parameter is either 'captions', 'chapters', 'prefs', 'transcript-window' or 'sign-window'
     // TODO: Add 'ytcaptions' to parameter list??? Or do they get handled as 'captions'
@@ -3541,7 +3550,6 @@
 
     thisObj = this;
 
-    // 
 
     $menu = $('<ul>',{
       'id': this.mediaId + '-' + which + '-menu',
@@ -3584,7 +3592,6 @@
             thisObj.descPrefsDialog.show();
           }
           else if (whichPref === thisObj.tt.prefMenuKeyboard) {
-            // 
             thisObj.keyboardPrefsDialog.show();
           }
           else if (whichPref === thisObj.tt.prefMenuTranscript) {
@@ -3789,8 +3796,6 @@
 
     popups = [];
 
-    
-
     if (typeof which === 'undefined') {
       popups.push('prefs');
     }
@@ -3971,17 +3976,19 @@
     return browsers;
   }
 
-  // Calculates the layout for controls based on media and options.
-  // Returns an object with keys 'ul', 'ur', 'bl', 'br' for upper-left, etc.
-  // Each associated value is array of control names to put at that location.
+   // Расчет макета для элементов управления на основе мультимедиа и параметров.
+   // Возвращает объект с клавишами 'ul', 'ur', 'bl', 'br' для верхнего левого угла и т. д.
+   // Каждое связанное значение является массивом имен элементов управления, которые нужно поместить в это место.
   AblePlayer.prototype.calculateControlLayout = function () {
     // Removed rewind/forward in favor of seek bar.
 
     var controlLayout = {
       'ul': [],
-      'ur': ['seek'],
+      'uc': ['seek'],
+      'ur': [],
       'bl': [],
-      'br': ['rewind', 'play','restart','forward']
+      'bc': [],
+      'br': []
     };
 
     // test for browser support for volume before displaying volume button
@@ -4003,9 +4010,17 @@
       // bll.push('slower');
       // bll.push('faster');
 
-       controlLayout['br'].push('slower');
-            controlLayout['br'].push('faster');
+       controlLayout['bl'].push('slower');
+       controlLayout['bl'].push('faster');
+
+
     }
+
+    controlLayout['bc'].push('rewind');
+    controlLayout['bc'].push('play');
+       // 'restart'
+    controlLayout['bc'].push('forward');
+    controlLayout['br'].push('preferences');
 
     if (this.mediaType === 'video') {
       if (this.hasCaptions) {
@@ -4028,7 +4043,7 @@
 
     // controlLayout['br'].push('preferences');
 
-    bll.push('preferences');
+    // bll.push('preferences');
 
     // TODO: JW currently has a bug with fullscreen, anything that can be done about this?
     if (this.mediaType === 'video' && this.allowFullScreen && this.player !== 'jw') {
@@ -4036,14 +4051,14 @@
     }
 
     // Include the pipe only if we need to.
-    if (bll.length > 0 && blr.length > 0) {
-      controlLayout['bl'] = bll;
-      controlLayout['bl'].push('pipe');
-      controlLayout['bl'] = controlLayout['bl'].concat(blr);
-    }
-    else {
-      controlLayout['bl'] = bll.concat(blr);
-    }
+    // if (bll.length > 0 && blr.length > 0) {
+    //   controlLayout['bl'] = bll;
+    //   controlLayout['bl'].push('pipe');
+    //   controlLayout['bl'] = controlLayout['bl'].concat(blr);
+    // }
+    // else {
+    //   controlLayout['bl'] = bll.concat(blr);
+    // }
 
     return controlLayout;
   };
@@ -4060,12 +4075,10 @@
     i, j, k, controls, $controllerSpan, $sliderDiv, sliderLabel, duration, $pipe, $pipeImg, tooltipId, tooltipX, tooltipY, control,
     buttonImg, buttonImgSrc, buttonTitle, $newButton, iconClass, buttonIcon, buttonUse, svgPath,
     leftWidth, rightWidth, totalWidth, leftWidthStyle, rightWidthStyle,
-    controllerStyles, vidcapStyles, captionLabel, popupMenuId;
+    controllerStyles, vidcapStyles, captionLabel, popupMenuId, sectionByOrder_len;
 
-    
 
     thisObj = this;
-    
 
     // baseSliderWidth = 100;
     baseSliderWidth = 50;
@@ -4073,7 +4086,9 @@
     // Initialize the layout into the this.controlLayout variable.
     controlLayout = this.calculateControlLayout();
 
-    sectionByOrder = {0: 'ul', 1:'ur', 3:'bl', 2:'br'};
+    sectionByOrder = {0: 'ul', 1: 'uc', 2:'ur', 3:'bl', 4: 'bc', 5:'br' };
+
+    sectionByOrder_len = Object.keys(sectionByOrder).length - 1;
 
     // add an empty div to serve as a tooltip
     tooltipId = this.mediaId + '-tooltip';
@@ -4083,12 +4098,32 @@
     }).hide();
     this.$controllerDiv.append(this.$tooltipDiv);
 
+    var $controllerRow = $('<div>', {
+         'class': 'able-controller-row'
+      });
+
     // step separately through left and right controls
-    for (i = 0; i <= 3; i++) {
+    for (i = 0; i <= sectionByOrder_len; i++) {
       controls = controlLayout[sectionByOrder[i]];
-      if ((i % 2) === 0) {
+      // if ((i % 2) === 0) {
+      //   $controllerSpan = $('<div>',{
+      //     'class': 'able-left-controls'
+      //   });
+      // }
+      // else {
+      //   $controllerSpan = $('<div>',{
+      //     'class': 'able-right-controls'
+      //   });
+      // }
+
+      if ([0, 3].includes(i)) {
         $controllerSpan = $('<div>',{
           'class': 'able-left-controls'
+        });
+      }
+      else if([1, 4].includes(i)) {
+        $controllerSpan = $('<div>',{
+          'class': 'able-center-controls'
         });
       }
       else {
@@ -4096,7 +4131,9 @@
           'class': 'able-right-controls'
         });
       }
-      this.$controllerDiv.append($controllerSpan);
+
+      $controllerRow.append($controllerSpan);
+
       for (j=0; j<controls.length; j++) {
         control = controls[j];
         if (control === 'seek') {
@@ -4113,10 +4150,8 @@
             // set arbitrary starting duration, and change it when duration is known
             duration = 100;
           }
-          
           this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth, 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
           // this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth - this.$elapsedTimeContainer.width() - this.$durationContainer.width() , 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
-          
         }
         else if (control === 'pipe') {
           // TODO: Unify this with buttons somehow to avoid code duplication
@@ -4349,7 +4384,6 @@
                 centerTooltip = false;
                 var tooltipWidth = AblePlayer.localGetElementById($newButton[0], tooltipId).text(label).width();
                 // var tooltipX = position.left - ((tooltipWidth - buttonWidth)/2);
-                // 
                 var tooltipX = position.left - (tooltipWidth - buttonWidth); // !!!!!
                 var tooltipStyle = {
                   left: tooltipX + 'px',
@@ -4447,8 +4481,15 @@
           this.addVolumeSlider($controllerSpan);
         }
       }
-      if ((i % 2) == 1) {
-        this.$controllerDiv.append('<div style="clear:both;"></div>');
+      // if ((i % 2) == 1) {
+      //   this.$controllerDiv.append('<div style="clear:both;"></div>');
+      // }
+      if (((i+1) % 3) == 0) {
+        // this.$controllerDiv.append('<div style="clear:both;"></div>');
+        this.$controllerDiv.append($controllerRow);
+        $controllerRow = $('<div>', {
+          'class': 'able-controller-row'
+        });
       }
     }
 
@@ -4743,7 +4784,8 @@
       if (typeof itemLang !== 'undefined') {
         nowPlayingSpan.attr('lang',itemLang);
       }
-      nowPlayingSpan.html('<span>' + this.tt.selectedTrack + '</span>' + itemTitle);
+      // nowPlayingSpan.html('<span>' + this.tt.selectedTrack + '</span>' + itemTitle);
+      nowPlayingSpan.html(itemTitle);
       this.$nowPlayingDiv.html(nowPlayingSpan);
     }
 
@@ -5986,6 +6028,7 @@
     this.trackDevice = null;
     this.tracking = false;
     this.bodyDiv.trigger('stopTracking', [position]);
+    
     this.setPosition(position, true);
   };
 
@@ -7243,6 +7286,8 @@
     this.seekFromTime = this.media.currentTime;
     this.seekToTime = newTime;
 
+    
+
     this.seeking = true;
     this.liveUpdatePending = true;
 
@@ -7457,6 +7502,7 @@
 
   AblePlayer.prototype.playMedia = function () {
 
+    
     var thisObj = this;
 
     if (this.player === 'html5') {
@@ -7528,7 +7574,7 @@
 
     var thisObj, duration, elapsed, lastChapterIndex, displayElapsed,
       updateLive, textByState, timestamp, widthUsed,
-      leftControls, rightControls, seekbarWidth, seekbarSpacer, captionsCount,
+      leftControls, centerControls, rightControls, seekbarWidth, seekbarSpacer, captionsCount,
       buffered, newTop, statusBarHeight, speedHeight, statusBarWidthBreakpoint,
       newSvgData;
 
@@ -7711,25 +7757,29 @@
     // To do this, we need to calculate the width of all buttons surrounding it.
     if (this.seekBar) {
       widthUsed = 0;
-      
       seekbarSpacer = 40; // adjust for discrepancies in browsers' calculated button widths
 
       this.$elapsedTimeContainer.css({
-        'padding':this.seekBar.seekHead.width()/2,
+        'padding':this.seekBar.seekHead.width()/3,
       });
 
       this.$durationContainer.css({
-        'padding':this.seekBar.seekHead.width()/2,
+        'padding':this.seekBar.seekHead.width()/3,
       });
-          // 
 
       widthUsed += this.$elapsedTimeContainer.width();
       widthUsed += this.$durationContainer.width();
       widthUsed += this.seekBar.seekHead.width();
 
       leftControls = this.seekBar.wrapperDiv.parent().prev('div.able-left-controls');
-      rightControls = leftControls.next('div.able-right-controls');
+      centerControls = leftControls.next('div.able-center-controls');
+      rightControls = centerControls.next('div.able-right-controls');
       leftControls.children().each(function () {
+        if ($(this).prop('tagName')=='BUTTON') {
+          widthUsed += $(this).width();
+        }
+      });
+      centerControls.children().each(function () {
         if ($(this).prop('tagName')=='BUTTON') {
           widthUsed += $(this).width();
         }
@@ -8233,7 +8283,6 @@
 
     this.keyboardPrefsDialog.show();
 
-    // 
 
 
     // if (this.prefsPopup.is(':visible')) {
@@ -10447,6 +10496,7 @@
         // described version been swapped and media has scrubbed to time of previous version
         if (this.playing) {
           // resume playback
+          // 
           this.playMedia();
           // reset vars
           this.swappingSrc = false;
@@ -10586,6 +10636,7 @@
     // Handle seek bar events.
     this.seekBar.bodyDiv.on('startTracking', function (e) {
       thisObj.pausedBeforeTracking = thisObj.isPaused();
+      // 
       thisObj.pauseMedia();
     }).on('tracking', function (e, position) {
       // Scrub transcript, captions, and metadata.
@@ -10595,7 +10646,8 @@
       thisObj.updateChapter(thisObj.convertChapterTimeToVideoTime(position));
       thisObj.updateMeta(position);
       thisObj.refreshControls();
-    }).on('stopTracking', function (e, position) {
+      // 
+      // 
       if (thisObj.useChapterTimes) {
         thisObj.seekTo(thisObj.convertChapterTimeToVideoTime(position));
       }
@@ -10603,9 +10655,13 @@
         thisObj.seekTo(position);
       }
       if (!thisObj.pausedBeforeTracking) {
+        // 
         setTimeout(function () {
           thisObj.playMedia();
         }, 200);
+      }
+      else{
+        thisObj.pauseMedia();
       }
     });
   };
@@ -12744,6 +12800,644 @@
 
 })(jQuery);
 (function ($) {
+  AblePlayer.prototype.getTranslation = function (lang) {
+
+    var en = {
+
+      "audio": "audio",
+
+      "video": "video",
+
+      "playerHeading": "Media player",
+
+      "faster": "Faster",
+
+      "slower": "Slower",
+
+      "play": "Plol",
+
+      "pause": "Pause",
+
+      "stop": "Stop",
+
+      "restart": "Restart",
+
+      "prevChapter": "Previous chapter",
+
+      "nextChapter": "Next chapter",
+
+      "prevTrack": "Previous track",
+
+      "nextTrack": "Next track",
+
+      "rewind": "Rewind",
+
+      "forward": "Forward",
+
+      "captions": "Captions",
+
+      "showCaptions": "Show captions",
+
+      "hideCaptions": "Hide captions",
+
+      "captionsOff": "Captions off",
+
+      "showTranscript": "Show transcript",
+
+      "hideTranscript": "Hide transcript",
+
+      "turnOnDescriptions": "Turn on descriptions",
+
+      "turnOffDescriptions": "Turn off descriptions",
+
+      "chapters": "Chapters",
+
+      "newChapter": "New chapter",
+
+      "language": "Language",
+
+      "sign": "Sign language",
+
+      "showSign": "Show sign language",
+
+      "hideSign": "Hide sign language",
+
+      "seekbarLabel": "timeline",
+
+      "mute": "Mute",
+
+      "unmute": "Unmute",
+
+      "volume": "Volume",
+
+      "volumeHelp": "Click to access volume slider",
+
+      "volumeUpDown": "Volume up down",
+
+      "volumeSliderClosed": "Volume slider closed",
+
+      "preferences": "Preferences",
+
+      "enterFullScreen": "Enter full screen",
+
+      "exitFullScreen": "Exit full screen",
+
+      "fullScreen": "Full screen",
+
+      "speed": "Speed",
+
+      "and": "and",
+
+      "or": "or",
+
+      "spacebar": "spacebar",
+
+      "transcriptTitle": "Transcript",
+
+      "lyricsTitle": "Lyrics",
+
+      "autoScroll": "Auto scroll",
+
+      "unknown": "Unknown",
+
+      "statusPlaying": "Playing",
+
+      "statusPaused": "Paused",
+
+      "statusStopped": "Stopped",
+
+      "statusWaiting": "Waiting",
+
+      "statusBuffering": "Buffering",
+
+      "statusUsingDesc": "Using described version",
+
+      "statusLoadingDesc": "Loading described version",
+
+      "statusUsingNoDesc": "Using non-described version",
+
+      "statusLoadingNoDesc": "Loading non-described version",
+
+      "statusLoadingNext": "Loading next track",
+
+      "statusEnd": "End of track",
+
+      "selectedTrack": "Selected Track",
+
+      "alertDescribedVersion": "Using the audio described version of this video",
+
+      "alertNonDescribedVersion": "Using the non-described version of this video",
+
+      "fallbackError1": "Sorry, your browser is unable to play this",
+
+      "fallbackError2": "The following browsers are known to work with this media player",
+
+      "orHigher": "or higher",
+
+      "prefMenuCaptions": "Captions",
+
+      "prefMenuDescriptions": "Descriptions",
+
+      "prefMenuKeyboard": "Keyboard",
+
+      "prefMenuTranscript": "Transcript",
+
+      "prefTitleCaptions": "Captions Preferences",
+
+      "prefTitleDescriptions": "Audio Description Preferences",
+
+      "prefTitleKeyboard": "Keyboard Preferences",
+
+      "prefTitleTranscript": "Transcript Preferences",
+
+      "prefIntroCaptions": "The following preferences control how captions are displayed.",
+
+      "prefIntroDescription1": "This media player supports audio description in two ways: ",
+
+      "prefIntroDescription2": "The current video has ",
+
+      "prefIntroDescriptionNone": "The current video has no audio description in either format.",
+
+      "prefIntroDescription3": "Use the following form to set your preferences related to audio description.",
+
+      "prefIntroDescription4": "After you save your settings, audio description can be toggled on/off using the Description button.",
+
+      "prefIntroKeyboard1": "The media player on this web page can be operated from anywhere on the page using keyboard shortcuts (see below for a list).",
+
+      "prefIntroKeyboard2": "Modifier keys (Shift, Alt, and Control) can be assigned below.",
+
+      "prefIntroKeyboard3": "NOTE: Some key combinations might conflict with keys used by your browser and/or other software applications. Try various combinations of modifier keys to find one that works for you.",
+
+      "prefIntroTranscript": "The following preferences affect the interactive transcript.",
+
+      "prefCookieWarning": "Saving your preferences requires cookies.",
+
+      "prefHeadingKeyboard1": "Modifier keys used for shortcuts",
+
+      "prefHeadingKeyboard2": "Current keyboard shortcuts",
+
+      "prefHeadingDescription": "Audio description",
+
+      "prefHeadingTextDescription": "Text-based audio description",
+
+      "prefHeadingCaptions": "Captions",
+
+      "prefHeadingTranscript": "Interactive Transcript",
+
+      "prefAltKey": "Alt",
+
+      "prefCtrlKey": "Control",
+
+      "prefShiftKey": "Shift",
+
+      "escapeKey": "Escape",
+
+      "escapeKeyFunction": "Close current dialog or popup menu",
+
+      "prefDescFormat": "Preferred format",
+
+      "prefDescFormatHelp": "If both formats are avaialable, only one will be used.",
+
+      "prefDescFormatOption1": "alternative described version of video",
+
+      "prefDescFormatOption1b": "an alternative described version",
+
+      "prefDescFormatOption2": "text-based description, announced by screen reader",
+
+      "prefDescFormatOption2b": "text-based description",
+
+      "prefDescPause": "Automatically pause video when description starts",
+
+      "prefVisibleDesc": "Make description visible",
+
+      "prefHighlight": "Highlight transcript as media plays",
+
+      "prefTabbable": "Keyboard-enable transcript",
+
+      "prefCaptionsFont": "Font",
+
+      "prefCaptionsColor": "Text Color",
+
+      "prefCaptionsBGColor": "Background",
+
+      "prefCaptionsSize": "Font Size",
+
+      "prefCaptionsOpacity": "Opacity",
+
+      "prefCaptionsStyle": "Style",
+
+      "serif": "serif",
+
+      "sans": "sans-serif",
+
+      "cursive": "cursive",
+
+      "fantasy": "fantasy",
+
+      "monospace": "monospace",
+
+      "white": "white",
+
+      "yellow": "yellow",
+
+      "green": "green",
+
+      "cyan": "cyan",
+
+      "blue": "blue",
+
+      "magenta": "magenta",
+
+      "red": "red",
+
+      "black": "black",
+
+      "transparent": "transparent",
+
+      "solid": "solid",
+
+      "captionsStylePopOn": "Pop-on",
+
+      "captionsStyleRollUp": "Roll-up",
+
+      "prefCaptionsPosition": "Position",
+
+      "captionsPositionOverlay": "Overlay",
+
+      "captionsPositionBelow": "Below video",
+
+      "sampleCaptionText": "Sample caption text",
+
+      "prefSuccess": "Your changes have been saved.",
+
+      "prefNoChange": "You didn't make any changes.",
+
+      "help": "Help",
+
+      "helpTitle": "Help",
+
+      "save": "Save",
+
+      "cancel": "Cancel",
+
+      "ok": "ok",
+
+      "done": "Done",
+
+      "closeButtonLabel": "Close dialog",
+
+      "windowButtonLabel": "Window options",
+
+      "windowMove": "Move",
+
+      "windowMoveAlert": "Drag or use arrow keys to move the window; Enter to stop",
+
+      "windowResize": "Resize",
+
+      "windowResizeHeading": "Resize Window",
+
+      "windowResizeAlert": "The window has been resized.",
+
+      "windowClose": "Close",
+
+      "width": "Width",
+
+      "height": "Height",
+
+      "windowSendBack": "Send to back",
+
+      "windowSendBackAlert": "This window is now behind other objects on the page.",
+
+      "windowBringTop": "Bring to front",
+
+      "windowBringTopAlert": "This window is now in front of other objects on the page."
+
+    };
+
+    var ru = {
+
+      "audio": "аудио",
+
+      "video": "видео",
+
+      "playerHeading": "Media player",
+
+      "faster": "Быстрее",
+
+      "slower": "Медленнее",
+
+      "play": "Воспроизвести",
+
+      "pause": "Пауза",
+
+      "stop": "Остановить",
+
+      "restart": "Заново",
+
+      "prevChapter": "Предыдущий раздел",
+
+      "nextChapter": "Следующий раздел",
+
+      "prevTrack": "Предыдущая аудиодорожка",
+
+      "nextTrack": "Следующая аудиодорожка",
+
+      "rewind": "Назад",
+
+      "forward": "Вперёд",
+
+      "captions": "Субтитры",
+
+      "showCaptions": "Показать субтитры",
+
+      "hideCaptions": "Скрыть субтитры",
+
+      "captionsOff": "Отключить субтитры",
+
+      "showTranscript": "Показать транскрипцию",
+
+      "hideTranscript": "Скрыть транскрипцию",
+
+      "turnOnDescriptions": "Включить описание",
+
+      "turnOffDescriptions": "Выключить описание",
+
+      "chapters": "Разделы",
+
+      "newChapter": "Новый раздел",
+
+      "language": "Язык",
+
+      "sign": "Язык жестов",
+
+      "showSign": "Показать язык жестов",
+
+      "hideSign": "Скрыть язык жестов",
+
+      "seekbarLabel": "График времени",
+
+      "mute": "Без звука",
+
+      "unmute": "Со звуком",
+
+      "volume": "Громкость",
+
+      "volumeHelp": "Нажмите, чтобы получить доступ к слайдеру громкости",
+
+      "volumeUpDown": "Уменьшить громкость",
+
+      "volumeSliderClosed": "Слайдер громкости закрыт",
+
+      "preferences": "Предпочтение клавиатуры",
+
+      "enterFullScreen": "Включить полноэкранный режим",
+
+      "exitFullScreen": "Выйти из полноэкранного режима",
+
+      "fullScreen": "Полноэкранный режим",
+
+      "speed": "Скорость",
+
+      "and": "и",
+
+      "or": "или",
+
+      "spacebar": "Пробел",
+
+      "transcriptTitle": "Расшифровка",
+
+      "lyricsTitle": "Текст аудиодорожки",
+
+      "autoScroll": "Автопромотка",
+
+      "unknown": "Неизвестный",
+
+      "statusPlaying": "Воспроизведение",
+
+      "statusPaused": "Пауза",
+
+      "statusStopped": "Остановлено",
+
+      "statusWaiting": "Ожидаем",
+
+      "statusBuffering": "Буфферизация",
+
+      "statusUsingDesc": "Использовать версию с описанием",
+
+      "statusLoadingDesc": "Загрузить версию с описанием",
+
+      "statusUsingNoDesc": "спользовать версию без описания",
+
+      "statusLoadingNoDesc": "Загрузить версию без описания",
+
+      "statusLoadingNext": "Загрузить следующую аудиодорожку",
+
+      "statusEnd": "Конец файла",
+
+      "selectedTrack": "Воспроизводится:",
+
+      "alertDescribedVersion": "Using the audio described version of this video",
+
+      "alertNonDescribedVersion": "Using the non-described version of this video",
+
+      "fallbackError1": "Sorry, your browser is unable to play this",
+
+      "fallbackError2": "The following browsers are known to work with this media player",
+
+      "orHigher": "или выше",
+
+      "prefMenuCaptions": "Титры",
+
+      "prefMenuDescriptions": "Описание",
+
+      "prefMenuKeyboard": "Клавиатура",
+
+      "prefMenuTranscript": "Transcript",
+
+      "prefTitleCaptions": "Captions Preferences",
+
+      "prefTitleDescriptions": "Audio Description Preferences",
+
+      "prefTitleKeyboard": "Управление клавиатурой",
+
+      "prefTitleTranscript": "Transcript Preferences",
+
+      "prefIntroCaptions": "The following preferences control how captions are displayed.",
+
+      "prefIntroDescription1": "This media player supports audio description in two ways: ",
+
+      "prefIntroDescription2": "The current video has ",
+
+      "prefIntroDescriptionNone": "The current video has no audio description in either format.",
+
+      "prefIntroDescription3": "Use the following form to set your preferences related to audio description.",
+
+      "prefIntroDescription4": "After you save your settings, audio description can be toggled on/off using the Description button.",
+
+      "prefIntroKeyboard1": "Медиаплеером на этой веб-странице можно управлять из любого места на странице с помощью сочетаний клавиш (список см. ниже).",
+
+      "prefIntroKeyboard2": "Клавиши-модификаторы (Shift, Alt и Control) могут быть назначены ниже.",
+
+      "prefIntroKeyboard3": "ПРИМЕЧАНИЕ: Некоторые комбинации клавиш могут конфликтовать с ключами, используемыми вашим браузером и / или другими программными приложениями. Попробуйте различные комбинации клавиш-модификаторов, чтобы найти ту, которая подходит именно вам.",
+
+      "prefIntroTranscript": "The following preferences affect the interactive transcript.",
+
+      "prefCookieWarning": "Saving your preferences requires cookies.",
+
+      "prefHeadingKeyboard1": "Клавиши-модификаторы, используемые для сочетания клавиш",
+
+      "prefHeadingKeyboard2": "Текущие сочетания клавиш",
+
+      "prefHeadingDescription": "Описание аудиодорожки",
+
+      "prefHeadingTextDescription": "Text-based audio description",
+
+      "prefHeadingCaptions": "Captions",
+
+      "prefHeadingTranscript": "Interactive Transcript",
+
+      "prefAltKey": "Alt",
+
+      "prefCtrlKey": "Control",
+
+      "prefShiftKey": "Shift",
+
+      "escapeKey": "Escape",
+
+      "escapeKeyFunction": "Закрыть текущий диалог или всплывающее окно",
+
+      "prefDescFormat": "Предпочитаемый формат",
+
+      "prefDescFormatHelp": "If both formats are avaialable, only one will be used.",
+
+      "prefDescFormatOption1": "alternative described version of video",
+
+      "prefDescFormatOption1b": "an alternative described version",
+
+      "prefDescFormatOption2": "text-based description, announced by screen reader",
+
+      "prefDescFormatOption2b": "text-based description",
+
+      "prefDescPause": "Automatically pause video when description starts",
+
+      "prefVisibleDesc": "Make description visible",
+
+      "prefHighlight": "Highlight transcript as media plays",
+
+      "prefTabbable": "Keyboard-enable transcript",
+
+      "prefCaptionsFont": "Шрифт",
+
+      "prefCaptionsColor": "Цвет шрифта",
+
+      "prefCaptionsBGColor": "Фон",
+
+      "prefCaptionsSize": "Размер шрифта",
+
+      "prefCaptionsOpacity": "Opacity",
+
+      "prefCaptionsStyle": "Style",
+
+      "serif": "serif",
+
+      "sans": "sans-serif",
+
+      "cursive": "cursive",
+
+      "fantasy": "fantasy",
+
+      "monospace": "monospace",
+
+      "white": "white",
+
+      "yellow": "yellow",
+
+      "green": "green",
+
+      "cyan": "cyan",
+
+      "blue": "blue",
+
+      "magenta": "magenta",
+
+      "red": "red",
+
+      "black": "black",
+
+      "transparent": "transparent",
+
+      "solid": "solid",
+
+      "captionsStylePopOn": "Pop-on",
+
+      "captionsStyleRollUp": "Roll-up",
+
+      "prefCaptionsPosition": "Position",
+
+      "captionsPositionOverlay": "Overlay",
+
+      "captionsPositionBelow": "Below video",
+
+      "sampleCaptionText": "Sample caption text",
+
+      "prefSuccess": "Ваши изменения были сохранены.",
+
+      "prefNoChange": "Вы не сделали никаких изменений.",
+
+      "help": "Help",
+
+      "helpTitle": "Help",
+
+      "save": "Сохранить",
+
+      "cancel": "Отменить",
+
+      "ok": "ok",
+
+      "done": "Готово",
+
+      "closeButtonLabel": "Закрыть",
+
+      "windowButtonLabel": "Window options",
+
+      "windowMove": "Move",
+
+      "windowMoveAlert": "Drag or use arrow keys to move the window; Enter to stop",
+
+      "windowResize": "Изменить размер окна",
+
+      "windowResizeHeading": "Изменить размер окна",
+
+      "windowResizeAlert": "Размер окна изменен",
+
+      "windowClose": "Закрыть",
+
+      "width": "Ширина",
+
+      "height": "Высота",
+
+      "windowSendBack": "Вернуться назад",
+
+      "windowSendBackAlert": "This window is now behind other objects on the page.",
+
+      "windowBringTop": "Bring to front",
+
+      "windowBringTopAlert": "This window is now in front of other objects on the page."
+
+    };
+
+    if (lang === "ru") {
+      return ru;
+    } else if (lang === "en") {
+      return en;
+    } else {
+      return en;
+    }
+  };
+
+
+})(jQuery);
+(function ($) {
   AblePlayer.prototype.getSupportedLangs = function() {
     // returns an array of languages for which AblePlayer has translation tables
     // Removing 'nl' as of 2.3.54, pending updates
@@ -12792,13 +13486,17 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    translationFile = '/' + 'translations/' + this.lang + '.js';
+    // translationFile = '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + this.lang + '.js';
-    // translationFile =  'http://media.ls.urfu.ru:8080/asset-v1:UrFU+DSP_TEST+2018+type@asset+block@' + this.lang + '.js';
+    // translationFile = "/static/" + this.lang + '.js';
+    translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';
     // translationFile = this.rootPath.slice(0, -1) + this.lang + '.js';
+    // 
     this.importTranslationFile(translationFile).then(function(result) {
-      thisObj.tt = eval(thisObj.lang);
+      thisObj.tt = thisObj.getTranslation(thisObj.lang);
+      // thisObj.tt = eval(thisObj.lang);
+      
       deferred.resolve();
     });
     return deferred.promise();
@@ -12818,6 +13516,8 @@
         // error retrieving file
         // TODO: handle this
       });
+    // deferred.resolve({});
+
     return deferred.promise();
   };
 

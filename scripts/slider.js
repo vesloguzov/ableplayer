@@ -329,6 +329,7 @@
     this.trackDevice = null;
     this.tracking = false;
     this.bodyDiv.trigger('stopTracking', [position]);
+    console.log("STOP!");
     this.setPosition(position, true);
   };
 

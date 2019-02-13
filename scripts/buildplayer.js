@@ -1,3 +1,5 @@
+"use strict";
+
 (function ($) {
 
   AblePlayer.prototype.injectPlayerCode = function() {
@@ -64,6 +66,8 @@
       }
       this.addTranscriptAreaEvents();
     }
+
+
 
     this.injectAlert();
     this.injectPlaylist();
@@ -134,11 +138,11 @@
       'class' : 'able-timer'
     });
     this.$elapsedTimeContainer = $('<span>',{
-      'class': 'able-elapsedTime',
+      'class': 'able-elapsedTime time-block',
       text: '0:00'
     });
     this.$durationContainer = $('<span>',{
-      'class': 'able-duration'
+      'class': 'able-duration time-block'
     });
 
     // this.$timer.append(this.$elapsedTimeContainer).append(this.$durationContainer);
@@ -828,17 +832,19 @@
     return browsers;
   }
 
-  // Calculates the layout for controls based on media and options.
-  // Returns an object with keys 'ul', 'ur', 'bl', 'br' for upper-left, etc.
-  // Each associated value is array of control names to put at that location.
+   // Расчет макета для элементов управления на основе мультимедиа и параметров.
+   // Возвращает объект с клавишами 'ul', 'ur', 'bl', 'br' для верхнего левого угла и т. д.
+   // Каждое связанное значение является массивом имен элементов управления, которые нужно поместить в это место.
   AblePlayer.prototype.calculateControlLayout = function () {
     // Removed rewind/forward in favor of seek bar.
 
     var controlLayout = {
       'ul': [],
-      'ur': ['seek'],
+      'uc': ['seek'],
+      'ur': [],
       'bl': [],
-      'br': ['rewind', 'play','restart','forward']
+      'bc': [],
+      'br': []
     };
 
     // test for browser support for volume before displaying volume button
@@ -860,9 +866,17 @@
       // bll.push('slower');
       // bll.push('faster');
 
-       controlLayout['br'].push('slower');
-            controlLayout['br'].push('faster');
+       controlLayout['bl'].push('slower');
+       controlLayout['bl'].push('faster');
+
+
     }
+
+    controlLayout['bc'].push('rewind');
+    controlLayout['bc'].push('play');
+       // 'restart'
+    controlLayout['bc'].push('forward');
+    controlLayout['br'].push('preferences');
 
     if (this.mediaType === 'video') {
       if (this.hasCaptions) {
@@ -885,7 +899,7 @@
 
     // controlLayout['br'].push('preferences');
 
-    bll.push('preferences');
+    // bll.push('preferences');
 
     // TODO: JW currently has a bug with fullscreen, anything that can be done about this?
     if (this.mediaType === 'video' && this.allowFullScreen && this.player !== 'jw') {
@@ -893,14 +907,14 @@
     }
 
     // Include the pipe only if we need to.
-    if (bll.length > 0 && blr.length > 0) {
-      controlLayout['bl'] = bll;
-      controlLayout['bl'].push('pipe');
-      controlLayout['bl'] = controlLayout['bl'].concat(blr);
-    }
-    else {
-      controlLayout['bl'] = bll.concat(blr);
-    }
+    // if (bll.length > 0 && blr.length > 0) {
+    //   controlLayout['bl'] = bll;
+    //   controlLayout['bl'].push('pipe');
+    //   controlLayout['bl'] = controlLayout['bl'].concat(blr);
+    // }
+    // else {
+    //   controlLayout['bl'] = bll.concat(blr);
+    // }
 
     return controlLayout;
   };
@@ -917,7 +931,7 @@
     i, j, k, controls, $controllerSpan, $sliderDiv, sliderLabel, duration, $pipe, $pipeImg, tooltipId, tooltipX, tooltipY, control,
     buttonImg, buttonImgSrc, buttonTitle, $newButton, iconClass, buttonIcon, buttonUse, svgPath,
     leftWidth, rightWidth, totalWidth, leftWidthStyle, rightWidthStyle,
-    controllerStyles, vidcapStyles, captionLabel, popupMenuId;
+    controllerStyles, vidcapStyles, captionLabel, popupMenuId, sectionByOrder_len;
 
 
     thisObj = this;
@@ -928,7 +942,9 @@
     // Initialize the layout into the this.controlLayout variable.
     controlLayout = this.calculateControlLayout();
 
-    sectionByOrder = {0: 'ul', 1:'ur', 3:'bl', 2:'br'};
+    sectionByOrder = {0: 'ul', 1: 'uc', 2:'ur', 3:'bl', 4: 'bc', 5:'br' };
+
+    sectionByOrder_len = Object.keys(sectionByOrder).length - 1;
 
     // add an empty div to serve as a tooltip
     tooltipId = this.mediaId + '-tooltip';
@@ -938,12 +954,32 @@
     }).hide();
     this.$controllerDiv.append(this.$tooltipDiv);
 
+    var $controllerRow = $('<div>', {
+         'class': 'able-controller-row'
+      });
+
     // step separately through left and right controls
-    for (i = 0; i <= 3; i++) {
+    for (i = 0; i <= sectionByOrder_len; i++) {
       controls = controlLayout[sectionByOrder[i]];
-      if ((i % 2) === 0) {
+      // if ((i % 2) === 0) {
+      //   $controllerSpan = $('<div>',{
+      //     'class': 'able-left-controls'
+      //   });
+      // }
+      // else {
+      //   $controllerSpan = $('<div>',{
+      //     'class': 'able-right-controls'
+      //   });
+      // }
+
+      if ([0, 3].includes(i)) {
         $controllerSpan = $('<div>',{
           'class': 'able-left-controls'
+        });
+      }
+      else if([1, 4].includes(i)) {
+        $controllerSpan = $('<div>',{
+          'class': 'able-center-controls'
         });
       }
       else {
@@ -951,7 +987,9 @@
           'class': 'able-right-controls'
         });
       }
-      this.$controllerDiv.append($controllerSpan);
+
+      $controllerRow.append($controllerSpan);
+
       for (j=0; j<controls.length; j++) {
         control = controls[j];
         if (control === 'seek') {
@@ -968,7 +1006,6 @@
             // set arbitrary starting duration, and change it when duration is known
             duration = 100;
           }
-          console.log("baseSliderWidth: ", baseSliderWidth);
           this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth, 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
           // this.seekBar = new AccessibleSlider(this.mediaType, $sliderDiv, 'horizontal', baseSliderWidth - this.$elapsedTimeContainer.width() - this.$durationContainer.width() , 0, duration, this.seekInterval, sliderLabel, 'seekbar', true, 'visible');
         }
@@ -1300,8 +1337,15 @@
           this.addVolumeSlider($controllerSpan);
         }
       }
-      if ((i % 2) == 1) {
-        this.$controllerDiv.append('<div style="clear:both;"></div>');
+      // if ((i % 2) == 1) {
+      //   this.$controllerDiv.append('<div style="clear:both;"></div>');
+      // }
+      if (((i+1) % 3) == 0) {
+        // this.$controllerDiv.append('<div style="clear:both;"></div>');
+        this.$controllerDiv.append($controllerRow);
+        $controllerRow = $('<div>', {
+          'class': 'able-controller-row'
+        });
       }
     }
 
@@ -1596,7 +1640,8 @@
       if (typeof itemLang !== 'undefined') {
         nowPlayingSpan.attr('lang',itemLang);
       }
-      nowPlayingSpan.html('<span>' + this.tt.selectedTrack + '</span>' + itemTitle);
+      // nowPlayingSpan.html('<span>' + this.tt.selectedTrack + '</span>' + itemTitle);
+      nowPlayingSpan.html(itemTitle);
       this.$nowPlayingDiv.html(nowPlayingSpan);
     }
 
