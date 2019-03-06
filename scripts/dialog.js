@@ -14,7 +14,7 @@
     this.modal = modal;
     modal.css({
       'width': width || '50%',
-      'top': (fullscreen ? '0' : '5%')
+      'top': (fullscreen ? '0' : '15%')
     });
     modal.addClass('able-modal-dialog');
 

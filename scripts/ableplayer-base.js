@@ -35,13 +35,15 @@
 "use strict";
 
 (function ($) {
-  $(document).ready(function () {
-    $('video, audio').each(function (index, element) {
-      if ($(element).data('able-player') !== undefined) {
-        new AblePlayer($(this),$(element));
-      }
-    });
-  });
+
+  // $(document).ready(function () {
+  //   $('video, audio').each(function (index, element) {
+  //     if ($(element).data('able-player') !== undefined) {
+  //       console.log("new AblePlayer");
+  //       new AblePlayer($(this),$(element));
+  //     }
+  //   });
+  // });
 
   // YouTube player support; pass ready event to jQuery so we can catch in player.
   window.onYouTubeIframeAPIReady = function() {
@@ -61,7 +63,7 @@
   // Parameters are:
   // media - jQuery selector or element identifying the media.
   window.AblePlayer = function(media) {
-
+    console.log("Load able player");
     // Keep track of the last player created for use with global events.
     AblePlayer.lastCreated = this;
 
@@ -543,4 +545,5 @@
 
   AblePlayer.youtubeIframeAPIReady = false;
   AblePlayer.loadingYoutubeIframeAPI = false;
+
 })(jQuery);

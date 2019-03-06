@@ -35,13 +35,15 @@
 "use strict";
 
 (function ($) {
-  $(document).ready(function () {
-    $('video, audio').each(function (index, element) {
-      if ($(element).data('able-player') !== undefined) {
-        new AblePlayer($(this),$(element));
-      }
-    });
-  });
+
+  // $(document).ready(function () {
+  //   $('video, audio').each(function (index, element) {
+  //     if ($(element).data('able-player') !== undefined) {
+  //       console.log("new AblePlayer");
+  //       new AblePlayer($(this),$(element));
+  //     }
+  //   });
+  // });
 
   // YouTube player support; pass ready event to jQuery so we can catch in player.
   window.onYouTubeIframeAPIReady = function() {
@@ -61,7 +63,7 @@
   // Parameters are:
   // media - jQuery selector or element identifying the media.
   window.AblePlayer = function(media) {
-
+    console.log("Load able player");
     // Keep track of the last player created for use with global events.
     AblePlayer.lastCreated = this;
 
@@ -543,6 +545,7 @@
 
   AblePlayer.youtubeIframeAPIReady = false;
   AblePlayer.loadingYoutubeIframeAPI = false;
+
 })(jQuery);
 
 (function ($) {
@@ -676,8 +679,8 @@
     switch (button) {
 
       case 'play':
-        svg[0] = '0 0 16 20';
-        svg[1] = 'M0 18.393v-16.429q0-0.29 0.184-0.402t0.441 0.033l14.821 8.237q0.257 0.145 0.257 0.346t-0.257 0.346l-14.821 8.237q-0.257 0.145-0.441 0.033t-0.184-0.402z';
+        svg[0] = '0 0 18 20';
+        svg[1] = 'M1 18.393v-16.429q0-0.29 0.184-0.402t0.441 0.033l14.821 8.237q0.257 0.145 0.257 0.346t-0.257 0.346l-14.821 8.237q-0.257 0.145-0.441 0.033t-0.184-0.402z';
         break;
 
       case 'pause':
@@ -697,7 +700,7 @@
 
       case 'rewind':
         svg[0] = '0 0 20 20';
-        svg[1] = 'M11.25 3.125v6.25l6.25-6.25v13.75l-6.25-6.25v6.25l-6.875-6.875z';
+        svg[1] = 'M9.25 3.125v6.25l6.25-6.25v13.75l-6.25-6.25v6.25l-6.875-6.875z';
         break;
 
       case 'forward':
@@ -771,7 +774,7 @@
         break;
 
       case 'volume-medium':
-        svg[0] = '0 0 20 20';
+        svg[0] = '0 0 17 20';
         svg[1] = 'M14.053 16.241c-0.24 0-0.48-0.092-0.663-0.275-0.366-0.366-0.366-0.96 0-1.326 2.559-2.559 2.559-6.722 0-9.281-0.366-0.366-0.366-0.96 0-1.326s0.96-0.366 1.326 0c1.594 1.594 2.471 3.712 2.471 5.966s-0.878 4.373-2.471 5.966c-0.183 0.183-0.423 0.275-0.663 0.275zM10.723 14.473c-0.24 0-0.48-0.092-0.663-0.275-0.366-0.366-0.366-0.96 0-1.326 1.584-1.584 1.584-4.161 0-5.745-0.366-0.366-0.366-0.96 0-1.326s0.96-0.366 1.326 0c2.315 2.315 2.315 6.082 0 8.397-0.183 0.183-0.423 0.275-0.663 0.275zM7.839 1.536c0.501-0.501 0.911-0.331 0.911 0.378v16.172c0 0.709-0.41 0.879-0.911 0.378l-4.714-4.713h-3.125v-7.5h3.125l4.714-4.714z';
         break;
 
@@ -1128,6 +1131,8 @@
 
     var thisObj = this;
     var playerPromise;
+    thisObj.$media.closest(".course-wrapper .course-content .vert-mod .vert>.xblock-student_view-html").css('overflow-x', 'unset');
+    console.log("thisObj.$media: ", );
 
     // First run player specific initialization.
     if (this.player === 'html5') {
@@ -6557,7 +6562,7 @@
     this.modal = modal;
     modal.css({
       'width': width || '50%',
-      'top': (fullscreen ? '0' : '5%')
+      'top': (fullscreen ? '0' : '15%')
     });
     modal.addClass('able-modal-dialog');
 
@@ -13490,9 +13495,9 @@
     }
     // translationFile = '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
-    // translationFile = this.rootPath + this.lang + '.js';
+    translationFile = this.rootPath + this.lang + '.js';
     // translationFile = "/static/" + this.lang + '.js';
-    translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';
+    // translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';
     // translationFile = this.rootPath.slice(0, -1) + this.lang + '.js';
     // console.log("this.rootPath: ", this.rootPath);
     this.importTranslationFile(translationFile).then(function(result) {

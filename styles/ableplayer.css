@@ -63,7 +63,8 @@
   top: 0;
 }
 .able-player {
-	font-family: Arial, Helvetica, sans-serif;
+	/*font-family: Arial, Helvetica, sans-serif;*/
+    font-family: 'Open Sans', sans-serif;
 	background-color: #20334b; /* background color of player (appears on top & bottom) */
 }
 .able-offscreen {
@@ -120,7 +121,8 @@
 
 .able-controller-row{
   display: flex;
-      justify-content: space-between;
+  justify-content: space-between;
+  /*margin: 0 10px;*/
   /*flex: 1;*/
 }
 
@@ -171,9 +173,9 @@
   position: relative;
   display: inline-block;
   border-style: none;
-  margin: 3px;
-  padding: 3px 8px;
-  font-size: 1.4em;
+    margin: 0.2rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 1.4rem;
   min-width: 24px;
   /*outline: 2px solid #464646;*/ /* same color as .able-controller background-color */
   border: none;
@@ -252,6 +254,7 @@
   z-index: 5200;
 }
 .able-seekbar-head {
+  cursor: pointer;
   display: inline-block;
   position: relative;
   left: 0;
@@ -273,7 +276,7 @@
   background-color: #464646; /* same as .able-controller */
   padding: 10px 0;
   position: absolute;
-  right: 6px;
+  right: 10px;
   top: -124px;
   display: block;
   z-index: 9100;
@@ -293,6 +296,7 @@
   top: 0px;  /* change dynamically; 50px - height */
 }
 .able-volume-head {
+  cursor: pointer;
   display: inline-block;
   background-color: #fdfdfd;
   outline: 1px solid #333;
@@ -402,12 +406,12 @@ input[type=range]:focus::-ms-fill-upper {
 */
 
 .able-status-bar {
-	height: 1.5em;
-	min-height: 1.5em;
-	color: #CCC;
-	font-size: 1.3em;
-	background-color: transparent;
-	padding: 0.5em 0.5em 0.25em;
+    height: 1.5em;
+    min-height: 1.5em;
+    color: #d2d2d2;
+    font-size: 1.3em;
+    background-color: transparent;
+    padding: 0.2em 0.7em 0.15em;
 }
 .able-status-bar span.able-timer {
 	/* contains both span.elapsedTime and span.duration */
@@ -483,7 +487,7 @@ div.able-descriptions {
 
 div.able-now-playing {
 	text-align: center;
-	font-weight: bold;
+	font-weight: normal;
 	font-size: 1.7em;
 	color: #FFFFFF;
 	background-color: transparent;
@@ -514,6 +518,8 @@ div.able-modal-dialog {
   background-color: #FAFAFA;
   box-sizing: content-box !important;
   z-index: 10000;
+  line-height: normal !important;
+  font-size: 1.1em;
 }
 div.able-modal-overlay {
   position: fixed;
