@@ -1,0 +1,25 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<link rel="stylesheet" href="/static/ableplayer.min.css" type="text/css"/>
+<script type="text/javascript" src="/static/ableplayer.js" defer>
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('video, audio').each(function (index, element) {
+            if ($(element).data('able-player') !== undefined) {
+                console.log("new AblePlayer");
+                new AblePlayer($(this),$(element));
+            }
+        });
+    });
+</script>
+
+<!--data-force-lang="en"-->
+
+<audio width="830" id="player_test" data-able-player data-root-path="/static/"></audio>
+<ul class="able-playlist" data-player="player_test" data-embedded>
+    <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления первого контакта</li>
+    <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления второго контракта</li>
+</ul>
+

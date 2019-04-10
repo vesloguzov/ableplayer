@@ -13493,9 +13493,9 @@
     }
     // translationFile = '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
-    translationFile = this.rootPath + this.lang + '.js';
+    // translationFile = this.rootPath + this.lang + '.js'; // на сайт
     // translationFile = "/static/" + this.lang + '.js';
-    // translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';
+    translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';  // на платформу
     // translationFile = this.rootPath.slice(0, -1) + this.lang + '.js';
     // 
     this.importTranslationFile(translationFile).then(function(result) {
