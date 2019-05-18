@@ -12,6 +12,7 @@
     var thisObj = this;
     var modal = modalDiv;
     this.modal = modal;
+
     modal.css({
       'width': width || '50%',
       'top': (fullscreen ? '0' : '15%')

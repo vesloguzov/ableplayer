@@ -39,7 +39,6 @@
   // $(document).ready(function () {
   //   $('video, audio').each(function (index, element) {
   //     if ($(element).data('able-player') !== undefined) {
-  //       console.log("new AblePlayer");
   //       new AblePlayer($(this),$(element));
   //     }
   //   });
@@ -63,7 +62,6 @@
   // Parameters are:
   // media - jQuery selector or element identifying the media.
   window.AblePlayer = function(media) {
-    console.log("Load able player");
     // Keep track of the last player created for use with global events.
     AblePlayer.lastCreated = this;
 
@@ -131,8 +129,20 @@
     }
 
 
-    console.log("THIS:", this);
+    /*
+    *
+    * Ищем переводы
+    *
+    */
 
+    if ($(media).data('translation-path') !== undefined){
+      var data_path = $(media).data('translation-path');
+      this.translationPath = data_path.substr(0, data_path.lastIndexOf("/")) + '@';
+    }
+    else{
+      this.translationPath = '/translations/';
+
+    }
     // Volume
     // Range is 0 to 10. Best not to crank it to avoid overpowering screen readers
     this.defaultVolume = 7;
@@ -412,7 +422,6 @@
       }
     }
 
-    console.log("LANG:", this.lang);
     // Player language is determined as follows (in translation.js > getTranslationText() ):
     // 1. Lang attributes on <html> or <body>, if a matching translation file is available
     // 2. The value of this.lang, if a matching translation file is available
@@ -486,7 +495,7 @@
     var thisObj = this;
     $.when(this.getTranslationText()).then(
       function () {
-        // console.log("INTI");
+
         if (thisObj.countProperties(thisObj.tt) > 50) {
           // close enough to ensure that most text variables are populated
           thisObj.setup();
@@ -504,6 +513,7 @@
 
   AblePlayer.prototype.setup = function() {
     var thisObj = this;
+
     this.reinitialize().then(function () {
       if (!thisObj.player) {
         // No player for this media, show last-line fallback.

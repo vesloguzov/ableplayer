@@ -77,7 +77,7 @@
     this.wrapperDiv = this.bodyDiv.parent();
 
     if (orientation === 'horizontal') {
-      console.log("length: ", length);
+      // console.log("length: ", length);
       this.wrapperDiv.width(length);
       this.loadedDiv.width(0);
     }
@@ -277,7 +277,6 @@
   };
 
   AccessibleSlider.prototype.setWidth = function (width) {
-    console.log("setWidth: ", width);
     this.wrapperDiv.width(width);
     this.resizeDivs();
     this.resetHeadLocation();

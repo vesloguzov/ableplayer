@@ -47,17 +47,16 @@
     if (!this.searchLang) {
       this.searchLang = this.lang;
     }
-    // translationFile = '/' + 'translations/' + this.lang + '.js';
+
     // translationFile = this.rootPath + '/' + 'translations/' + this.lang + '.js';
     // translationFile = this.rootPath + this.lang + '.js'; // на сайт
     // translationFile = "/static/" + this.lang + '.js';
-    translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block@' + this.lang + '.js';  // на платформу
-    // translationFile = this.rootPath.slice(0, -1) + this.lang + '.js';
-    // console.log("this.rootPath: ", this.rootPath);
+    // translationFile =  'https://courses.openedu.ru/asset-v1:urfu+Inclus_M1+fall_2019+type@asset+block' + '@' + this.lang + '.js';
+
+    translationFile =  this.translationPath + this.lang + '.js';  // на платформу
+    // console.log("translationFile: ", translationFile);
     this.importTranslationFile(translationFile).then(function(result) {
-      thisObj.tt = thisObj.getTranslation(thisObj.lang);
-      // thisObj.tt = eval(thisObj.lang);
-      console.log("thisObj.tt: ", thisObj.tt);
+      thisObj.tt = eval(thisObj.lang);
       deferred.resolve();
     });
     return deferred.promise();

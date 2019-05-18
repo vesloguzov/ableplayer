@@ -4,20 +4,32 @@
 </script>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         $('video, audio').each(function (index, element) {
             if ($(element).data('able-player') !== undefined) {
-                console.log("new AblePlayer");
                 new AblePlayer($(this),$(element));
             }
         });
     });
 </script>
 
-<!--data-force-lang="en"-->
+<!--
+1. Определение языка:
+    - автоматически определяется язык страницы
+    - data-force-lang="en" этот атрибут принудительно задает язык
 
-<audio width="830" id="player_test" data-able-player data-root-path="/static/"></audio>
+2. Режим дебага:
+    - data-debug
+
+3. Файлы перевода:
+    - data-translation-path="/static/lang.js" задаем так для Open edX, файлы "ru.js", "en.js" и т.д. складываем в "Файлы и загрузки"
+    - файлы перевода обязательно должны быть (в т.ч. для русского и англйского языков)
+
+4.
+
+-->
+
+<audio width="830" id="player_test" data-able-player data-translation-path="/static/lang.js"></audio>
 <ul class="able-playlist" data-player="player_test" data-embedded>
     <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления первого контакта</li>
     <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления второго контракта</li>

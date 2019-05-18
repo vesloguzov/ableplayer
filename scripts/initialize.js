@@ -1,5 +1,6 @@
 (function ($) {
   // Set default variable values.
+
   AblePlayer.prototype.setDefaults = function () {
 
     this.playing = false; // will change to true after 'playing' event is triggered
@@ -582,7 +583,6 @@
     var thisObj = this;
     var playerPromise;
     thisObj.$media.closest(".course-wrapper .course-content .vert-mod .vert>.xblock-student_view-html").css('overflow-x', 'unset');
-    console.log("thisObj.$media: ", );
 
     // First run player specific initialization.
     if (this.player === 'html5') {

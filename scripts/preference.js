@@ -687,8 +687,14 @@
     // otherwise when aria-hidden="true" is applied to all background content
     // that will include an ancestor of the dialog,
     // which will render the dialog unreadable by screen readers
-    $('body').append($prefsDiv);
-    dialog = new AccessibleDialog($prefsDiv, this.$prefsButton, 'dialog', formTitle, $prefsIntro, thisObj.tt.closeButtonLabel, '32em');
+
+    // Меняем схему подключения модального окна:
+    // Теперь оно не в body, а в this.$ableWrapper.parent()
+    // было:     $('body').append($prefsDiv);
+
+    this.$ableWrapper.parent().append($prefsDiv);
+
+    dialog = new AccessibleDialog($prefsDiv, this.$prefsButton, 'dialog', formTitle, $prefsIntro, thisObj.tt.closeButtonLabel, '40em');
 
     // Add save and cancel buttons.
     $prefsDiv.append('<hr>');

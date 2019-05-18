@@ -6,9 +6,20 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/ableplayer.min.css" type="text/css"/>
-
+ 
 <!-- JavaScript -->
 <script src="/ableplayer.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('video, audio').each(function (index, element) {
+            if ($(element).data('able-player') !== undefined) {
+                // console.log("new AblePlayer");
+                new AblePlayer($(this),$(element));
+            }
+        });
+    });
+</script>
 
 
 <div style="padding: 100px; background: azure">
@@ -24,3 +35,12 @@
 </html>
 
 
+
+<!--
+
+
+preference.js: 692
+
+$('body').append($prefsDiv);
+
+	-->

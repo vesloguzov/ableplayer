@@ -1,311 +1,311 @@
 var ru = {
 
-"audio": "аудио",
+    "audio": "аудио",
 
-"video": "видео",
+    "video": "видео",
 
-"playerHeading": "Media player",
+    "playerHeading": "Media player",
 
-"faster": "Быстрее",
+    "faster": "Быстрее",
 
-"slower": "Медленнее",
+    "slower": "Медленнее",
 
-"play": "Plol",
+    "play": "Воспроизвести",
 
-"pause": "Pause",
+    "pause": "Пауза",
 
-"stop": "Stop",
+    "stop": "Остановить",
 
-"restart": "Restart",
+    "restart": "Заново",
 
-"prevChapter": "Previous chapter",
+    "prevChapter": "Предыдущий раздел",
 
-"nextChapter": "Next chapter",
+    "nextChapter": "Следующий раздел",
 
-"prevTrack": "Previous track",
+    "prevTrack": "Предыдущая аудиодорожка",
 
-"nextTrack": "Next track",
+    "nextTrack": "Следующая аудиодорожка",
 
-"rewind": "Rewind",
+    "rewind": "Назад",
 
-"forward": "Forward",
+    "forward": "Вперёд",
 
-"captions": "Captions",
+    "captions": "Субтитры",
 
-"showCaptions": "Show captions",
+    "showCaptions": "Показать субтитры",
 
-"hideCaptions": "Hide captions",
+    "hideCaptions": "Скрыть субтитры",
 
-"captionsOff": "Captions off",
+    "captionsOff": "Отключить субтитры",
 
-"showTranscript": "Show transcript",
+    "showTranscript": "Показать транскрипцию",
 
-"hideTranscript": "Hide transcript",
+    "hideTranscript": "Скрыть транскрипцию",
 
-"turnOnDescriptions": "Turn on descriptions",
+    "turnOnDescriptions": "Включить описание",
 
-"turnOffDescriptions": "Turn off descriptions",
+    "turnOffDescriptions": "Выключить описание",
 
-"chapters": "Chapters",
+    "chapters": "Разделы",
 
-"newChapter": "New chapter",
+    "newChapter": "Новый раздел",
 
-"language": "Language",
+    "language": "Язык",
 
-"sign": "Sign language",
+    "sign": "Язык жестов",
 
-"showSign": "Show sign language",
+    "showSign": "Показать язык жестов",
 
-"hideSign": "Hide sign language",
+    "hideSign": "Скрыть язык жестов",
 
-"seekbarLabel": "timeline",
+    "seekbarLabel": "График времени",
 
-"mute": "Mute",
+    "mute": "Без звука",
 
-"unmute": "Unmute",
+    "unmute": "Со звуком",
 
-"volume": "Volume",
+    "volume": "Громкость",
 
-"volumeHelp": "Click to access volume slider",
+    "volumeHelp": "Нажмите, чтобы получить доступ к слайдеру громкости",
 
-"volumeUpDown": "Volume up down",
+    "volumeUpDown": "Уменьшить громкость",
 
-"volumeSliderClosed": "Volume slider closed",
+    "volumeSliderClosed": "Слайдер громкости закрыт",
 
-"preferences": "Preferences",
+    "preferences": "Предпочтение клавиатуры",
 
-"enterFullScreen": "Enter full screen",
+    "enterFullScreen": "Включить полноэкранный режим",
 
-"exitFullScreen": "Exit full screen",
+    "exitFullScreen": "Выйти из полноэкранного режима",
 
-"fullScreen": "Full screen",
+    "fullScreen": "Полноэкранный режим",
 
-"speed": "Speed",
+    "speed": "Скорость",
 
-"and": "and",
+    "and": "и",
 
-"or": "or",
+    "or": "или",
 
-"spacebar": "spacebar",
+    "spacebar": "Пробел",
 
-"transcriptTitle": "Transcript",
+    "transcriptTitle": "Расшифровка",
 
-"lyricsTitle": "Lyrics",
+    "lyricsTitle": "Текст аудиодорожки",
 
-"autoScroll": "Auto scroll",
+    "autoScroll": "Автопромотка",
 
-"unknown": "Unknown",
+    "unknown": "Неизвестный",
 
-"statusPlaying": "Playing",
+    "statusPlaying": "Воспроизведение",
 
-"statusPaused": "Paused",
+    "statusPaused": "Пауза",
 
-"statusStopped": "Stopped",
+    "statusStopped": "Остановлено",
 
-"statusWaiting": "Waiting",
+    "statusWaiting": "Ожидаем",
 
-"statusBuffering": "Buffering",
+    "statusBuffering": "Буфферизация",
 
-"statusUsingDesc": "Using described version",
+    "statusUsingDesc": "Использовать версию с описанием",
 
-"statusLoadingDesc": "Loading described version",
+    "statusLoadingDesc": "Загрузить версию с описанием",
 
-"statusUsingNoDesc": "Using non-described version",
+    "statusUsingNoDesc": "спользовать версию без описания",
 
-"statusLoadingNoDesc": "Loading non-described version",
+    "statusLoadingNoDesc": "Загрузить версию без описания",
 
-"statusLoadingNext": "Loading next track",
+    "statusLoadingNext": "Загрузить следующую аудиодорожку",
 
-"statusEnd": "End of track",
+    "statusEnd": "Конец файла",
 
-"selectedTrack": "Selected Track",
+    "selectedTrack": "Воспроизводится:",
 
-"alertDescribedVersion": "Using the audio described version of this video",
+    "alertDescribedVersion": "Using the audio described version of this video",
 
-"alertNonDescribedVersion": "Using the non-described version of this video",
+    "alertNonDescribedVersion": "Using the non-described version of this video",
 
-"fallbackError1": "Sorry, your browser is unable to play this",
+    "fallbackError1": "Sorry, your browser is unable to play this",
 
-"fallbackError2": "The following browsers are known to work with this media player",
+    "fallbackError2": "The following browsers are known to work with this media player",
 
-"orHigher": "or higher",
+    "orHigher": "или выше",
 
-"prefMenuCaptions": "Captions",
+    "prefMenuCaptions": "Титры",
 
-"prefMenuDescriptions": "Descriptions",
+    "prefMenuDescriptions": "Описание",
 
-"prefMenuKeyboard": "Keyboard",
+    "prefMenuKeyboard": "Клавиатура",
 
-"prefMenuTranscript": "Transcript",
+    "prefMenuTranscript": "Transcript",
 
-"prefTitleCaptions": "Captions Preferences",
+    "prefTitleCaptions": "Captions Preferences",
 
-"prefTitleDescriptions": "Audio Description Preferences",
+    "prefTitleDescriptions": "Audio Description Preferences",
 
-"prefTitleKeyboard": "Keyboard Preferences",
+    "prefTitleKeyboard": "Управление клавиатурой",
 
-"prefTitleTranscript": "Transcript Preferences",
+    "prefTitleTranscript": "Transcript Preferences",
 
-"prefIntroCaptions": "The following preferences control how captions are displayed.",
+    "prefIntroCaptions": "The following preferences control how captions are displayed.",
 
-"prefIntroDescription1": "This media player supports audio description in two ways: ",
+    "prefIntroDescription1": "This media player supports audio description in two ways: ",
 
-"prefIntroDescription2": "The current video has ",
+    "prefIntroDescription2": "The current video has ",
 
-"prefIntroDescriptionNone": "The current video has no audio description in either format.",
+    "prefIntroDescriptionNone": "The current video has no audio description in either format.",
 
-"prefIntroDescription3": "Use the following form to set your preferences related to audio description.",
+    "prefIntroDescription3": "Use the following form to set your preferences related to audio description.",
 
-"prefIntroDescription4": "After you save your settings, audio description can be toggled on/off using the Description button.",
+    "prefIntroDescription4": "After you save your settings, audio description can be toggled on/off using the Description button.",
 
-"prefIntroKeyboard1": "The media player on this web page can be operated from anywhere on the page using keyboard shortcuts (see below for a list).",
+    "prefIntroKeyboard1": "Медиаплеером на этой веб-странице можно управлять из любого места на странице с помощью сочетаний клавиш (список см. ниже).",
 
-"prefIntroKeyboard2": "Modifier keys (Shift, Alt, and Control) can be assigned below.",
+    "prefIntroKeyboard2": "Клавиши-модификаторы (Shift, Alt и Control) могут быть назначены ниже.",
 
-"prefIntroKeyboard3": "NOTE: Some key combinations might conflict with keys used by your browser and/or other software applications. Try various combinations of modifier keys to find one that works for you.",
+    "prefIntroKeyboard3": "ПРИМЕЧАНИЕ: Некоторые комбинации клавиш могут конфликтовать с ключами, используемыми вашим браузером и / или другими программными приложениями. Попробуйте различные комбинации клавиш-модификаторов, чтобы найти ту, которая подходит именно вам.",
 
-"prefIntroTranscript": "The following preferences affect the interactive transcript.",
+    "prefIntroTranscript": "The following preferences affect the interactive transcript.",
 
-"prefCookieWarning": "Saving your preferences requires cookies.",
+    "prefCookieWarning": "Saving your preferences requires cookies.",
 
-"prefHeadingKeyboard1": "Modifier keys used for shortcuts",
+    "prefHeadingKeyboard1": "Клавиши-модификаторы, используемые для сочетания клавиш",
 
-"prefHeadingKeyboard2": "Current keyboard shortcuts",
+    "prefHeadingKeyboard2": "Текущие сочетания клавиш",
 
-"prefHeadingDescription": "Audio description",
+    "prefHeadingDescription": "Описание аудиодорожки",
 
-"prefHeadingTextDescription": "Text-based audio description",
+    "prefHeadingTextDescription": "Text-based audio description",
 
-"prefHeadingCaptions": "Captions",
+    "prefHeadingCaptions": "Captions",
 
-"prefHeadingTranscript": "Interactive Transcript",
+    "prefHeadingTranscript": "Interactive Transcript",
 
-"prefAltKey": "Alt",
+    "prefAltKey": "Alt",
 
-"prefCtrlKey": "Control",
+    "prefCtrlKey": "Control",
 
-"prefShiftKey": "Shift",
+    "prefShiftKey": "Shift",
 
-"escapeKey": "Escape",
+    "escapeKey": "Escape",
 
-"escapeKeyFunction": "Close current dialog or popup menu",
+    "escapeKeyFunction": "Закрыть текущий диалог или всплывающее окно",
 
-"prefDescFormat": "Preferred format",
+    "prefDescFormat": "Предпочитаемый формат",
 
-"prefDescFormatHelp": "If both formats are avaialable, only one will be used.",
+    "prefDescFormatHelp": "If both formats are avaialable, only one will be used.",
 
-"prefDescFormatOption1": "alternative described version of video",
+    "prefDescFormatOption1": "alternative described version of video",
 
-"prefDescFormatOption1b": "an alternative described version",
+    "prefDescFormatOption1b": "an alternative described version",
 
-"prefDescFormatOption2": "text-based description, announced by screen reader",
+    "prefDescFormatOption2": "text-based description, announced by screen reader",
 
-"prefDescFormatOption2b": "text-based description",
+    "prefDescFormatOption2b": "text-based description",
 
-"prefDescPause": "Automatically pause video when description starts",
+    "prefDescPause": "Automatically pause video when description starts",
 
-"prefVisibleDesc": "Make description visible",
+    "prefVisibleDesc": "Make description visible",
 
-"prefHighlight": "Highlight transcript as media plays",
+    "prefHighlight": "Highlight transcript as media plays",
 
-"prefTabbable": "Keyboard-enable transcript",
+    "prefTabbable": "Keyboard-enable transcript",
 
-"prefCaptionsFont": "Font",
+    "prefCaptionsFont": "Шрифт",
 
-"prefCaptionsColor": "Text Color",
+    "prefCaptionsColor": "Цвет шрифта",
 
-"prefCaptionsBGColor": "Background",
+    "prefCaptionsBGColor": "Фон",
 
-"prefCaptionsSize": "Font Size",
+    "prefCaptionsSize": "Размер шрифта",
 
-"prefCaptionsOpacity": "Opacity",
+    "prefCaptionsOpacity": "Opacity",
 
-"prefCaptionsStyle": "Style",
+    "prefCaptionsStyle": "Style",
 
-"serif": "serif",
+    "serif": "serif",
 
-"sans": "sans-serif",
+    "sans": "sans-serif",
 
-"cursive": "cursive",
+    "cursive": "cursive",
 
-"fantasy": "fantasy",
+    "fantasy": "fantasy",
 
-"monospace": "monospace",
+    "monospace": "monospace",
 
-"white": "white",
+    "white": "white",
 
-"yellow": "yellow",
+    "yellow": "yellow",
 
-"green": "green",
+    "green": "green",
 
-"cyan": "cyan",
+    "cyan": "cyan",
 
-"blue": "blue",
+    "blue": "blue",
 
-"magenta": "magenta",
+    "magenta": "magenta",
 
-"red": "red",
+    "red": "red",
 
-"black": "black",
+    "black": "black",
 
-"transparent": "transparent",
+    "transparent": "transparent",
 
-"solid": "solid",
+    "solid": "solid",
 
-"captionsStylePopOn": "Pop-on",
+    "captionsStylePopOn": "Pop-on",
 
-"captionsStyleRollUp": "Roll-up",
+    "captionsStyleRollUp": "Roll-up",
 
-"prefCaptionsPosition": "Position",
+    "prefCaptionsPosition": "Position",
 
-"captionsPositionOverlay": "Overlay",
+    "captionsPositionOverlay": "Overlay",
 
-"captionsPositionBelow": "Below video",
+    "captionsPositionBelow": "Below video",
 
-"sampleCaptionText": "Sample caption text",
+    "sampleCaptionText": "Sample caption text",
 
-"prefSuccess": "Your changes have been saved.",
+    "prefSuccess": "Ваши изменения были сохранены.",
 
-"prefNoChange": "You didn't make any changes.",
+    "prefNoChange": "Вы не сделали никаких изменений.",
 
-"help": "Help",
+    "help": "Help",
 
-"helpTitle": "Help",
+    "helpTitle": "Help",
 
-"save": "Save",
+    "save": "Сохранить",
 
-"cancel": "Cancel",
+    "cancel": "Отменить",
 
-"ok": "ok",
+    "ok": "ok",
 
-"done": "Done",
+    "done": "Готово",
 
-"closeButtonLabel": "Close dialog",
+    "closeButtonLabel": "Закрыть",
 
-"windowButtonLabel": "Window options",
+    "windowButtonLabel": "Window options",
 
-"windowMove": "Move",
+    "windowMove": "Move",
 
-"windowMoveAlert": "Drag or use arrow keys to move the window; Enter to stop",
+    "windowMoveAlert": "Drag or use arrow keys to move the window; Enter to stop",
 
-"windowResize": "Resize",
+    "windowResize": "Изменить размер окна",
 
-"windowResizeHeading": "Resize Window",
+    "windowResizeHeading": "Изменить размер окна",
 
-"windowResizeAlert": "The window has been resized.",
+    "windowResizeAlert": "Размер окна изменен",
 
-"windowClose": "Close",
+    "windowClose": "Закрыть",
 
-"width": "Width",
+    "width": "Ширина",
 
-"height": "Height",
+    "height": "Высота",
 
-"windowSendBack": "Send to back",
+    "windowSendBack": "Вернуться назад",
 
-"windowSendBackAlert": "This window is now behind other objects on the page.",
+    "windowSendBackAlert": "This window is now behind other objects on the page.",
 
-"windowBringTop": "Bring to front",
+    "windowBringTop": "Bring to front",
 
-"windowBringTopAlert": "This window is now in front of other objects on the page."
+    "windowBringTopAlert": "This window is now in front of other objects on the page."
 
 };
