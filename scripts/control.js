@@ -6,8 +6,6 @@
     this.seekFromTime = this.media.currentTime;
     this.seekToTime = newTime;
 
-    console.log("seekTo");
-
     this.seeking = true;
     this.liveUpdatePending = true;
 
@@ -222,7 +220,6 @@
 
   AblePlayer.prototype.playMedia = function () {
 
-    console.log("PLAYING!");
     var thisObj = this;
 
     if (this.player === 'html5') {

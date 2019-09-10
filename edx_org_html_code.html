@@ -1,22 +1,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
 <link rel="stylesheet" href="/static/ableplayer.min.css" type="text/css"/>
-<script type="text/javascript" src="/static/ableplayer.js" defer></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    let player_script = document.createElement("script");
+    player_script.src  = "/static/ableplayer.js";
+    let head = document.getElementsByTagName("head").item(0);
+    head.appendChild(player_script);
+
+    player_script.onload = function(){
         $('video, audio').each(function (index, element) {
             if ($(element).data('able-player') !== undefined) {
                 new AblePlayer($(this),$(element));
             }
+
         });
-    });
+    };
+
 </script>
 
 
-<audio width="830" id="able_player_1" data-able-player data-translation-path="/static/lang.js"></audio>
+<audio width="830" id="able_player_1" data-force-lang="en" data-able-player data-translation-path="/static/lang.js"></audio>
 <ul class="able-playlist" data-player="able_player_1" data-embedded>
-    <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления первого контакта</li>
-    <li data-mp3="/static/Pravila-ustanovleniya-pervogo-kontakta+.mp3" >Правила установления второго контракта</li>
+    <li data-mp3="/static/Mehanizmy-stabilizacii.mp3" >Self-esteem stabilization mechanisms</li>
 </ul>
 
 

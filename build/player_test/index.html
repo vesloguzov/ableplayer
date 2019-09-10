@@ -6,7 +6,7 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="/ableplayer.min.css" type="text/css"/>
- 
+
 <!-- JavaScript -->
 <script src="/ableplayer.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -14,8 +14,7 @@
     $(document).ready(function () {
         $('video, audio').each(function (index, element) {
             if ($(element).data('able-player') !== undefined) {
-                // console.log("new AblePlayer");
-                new AblePlayer($(this),$(element));
+                new AblePlayer($(this), $(element));
             }
         });
     });
@@ -24,23 +23,12 @@
 
 <div style="padding: 100px; background: azure">
 
-<audio width="810" id="inclusive" data-able-player data-lang="ru"></audio>
-<ul class="able-playlist" data-player="inclusive" data-embedded>
-  <li data-mp3="/player_test/music.mp3" >My First Song</li>
-  <li data-mp3="/player_test/music.mp3" >My Second Song</li>
-  <li data-mp3="/player_test/music.mp3" >My Third Song</li>
-</ul>
+    <audio width="810" id="inclusive" data-able-player data-lang="ru"></audio>
+    <ul class="able-playlist" data-player="inclusive" data-embedded>
+        <li data-mp3="/player_test/music.mp3">My First Song</li>
+        <li data-mp3="/player_test/music.mp3">My Second Song</li>
+        <li data-mp3="/player_test/music.mp3">My Third Song</li>
+    </ul>
 
-  </div>
+</div>
 </html>
-
-
-
-<!--
-
-
-preference.js: 692
-
-$('body').append($prefsDiv);
-
-	-->

@@ -77,7 +77,6 @@
     this.wrapperDiv = this.bodyDiv.parent();
 
     if (orientation === 'horizontal') {
-      // console.log("length: ", length);
       this.wrapperDiv.width(length);
       this.loadedDiv.width(0);
     }
@@ -328,7 +327,6 @@
     this.trackDevice = null;
     this.tracking = false;
     this.bodyDiv.trigger('stopTracking', [position]);
-    console.log("STOP!");
     this.setPosition(position, true);
   };
 

@@ -8,7 +8,6 @@
         // described version been swapped and media has scrubbed to time of previous version
         if (this.playing) {
           // resume playback
-          // console.log("playMedia()");
           this.playMedia();
           // reset vars
           this.swappingSrc = false;
@@ -160,7 +159,7 @@
       thisObj.refreshControls();
       // console.log("racj", thisObj.pausedBeforeTracking)
     }).on('stopTracking', function (e, position) {
-      console.log("pausedBeforeTracking", thisObj.pausedBeforeTracking);
+      // console.log("pausedBeforeTracking", thisObj.pausedBeforeTracking);
       // console.log("stop tracking: ", thisObj.isPaused());
       if (thisObj.useChapterTimes) {
         thisObj.seekTo(thisObj.convertChapterTimeToVideoTime(position));

@@ -5797,7 +5797,6 @@
     this.wrapperDiv = this.bodyDiv.parent();
 
     if (orientation === 'horizontal') {
-      // 
       this.wrapperDiv.width(length);
       this.loadedDiv.width(0);
     }
@@ -6048,7 +6047,6 @@
     this.trackDevice = null;
     this.tracking = false;
     this.bodyDiv.trigger('stopTracking', [position]);
-    
     this.setPosition(position, true);
   };
 
@@ -6579,7 +6577,7 @@
     modal.css({
       'width': width || '50%',
       // top был 15%
-      'top': (fullscreen ? '0' : '0%')
+      'top': (fullscreen ? '0' : '10%')
     });
     modal.addClass('able-modal-dialog');
 
@@ -7308,8 +7306,6 @@
     this.seekFromTime = this.media.currentTime;
     this.seekToTime = newTime;
 
-    
-
     this.seeking = true;
     this.liveUpdatePending = true;
 
@@ -7524,7 +7520,6 @@
 
   AblePlayer.prototype.playMedia = function () {
 
-    
     var thisObj = this;
 
     if (this.player === 'html5') {
@@ -10518,7 +10513,6 @@
         // described version been swapped and media has scrubbed to time of previous version
         if (this.playing) {
           // resume playback
-          // 
           this.playMedia();
           // reset vars
           this.swappingSrc = false;
